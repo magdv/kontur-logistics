@@ -1,0 +1,42 @@
+{
+    "name": "magdv/kontur-logistics",
+    "description": "Kontur.Logistics API implementation",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Korolev Denis",
+            "email": "d.korolev@magdv.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "psr/http-client": "^1.0",
+        "nyholm/psr7": "^1.5",
+        "ext-simplexml": "*",
+        "php-http/multipart-stream-builder": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MagDv\\Logistics\\": "src/",
+            "Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm": "^3.8",
+        "overtrue/phplint": "^2.0",
+        "phpunit/phpunit": "^8.5",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "scripts": {
+        "lint": "phplint",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "psalm": "psalm",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage"
+    }
+}
