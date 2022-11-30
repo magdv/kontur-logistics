@@ -1,4 +1,5 @@
 Клиент API для https://kontur.ru/diadoc/logistika
+Свагер https://logist-api-staging.kontur.ru/swagger/index.html
 ---------------------------
 
 Клиент API Контур Логистики.

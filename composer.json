@@ -29,7 +29,8 @@
         "vimeo/psalm": "^3.8",
         "overtrue/phplint": "^2.0",
         "phpunit/phpunit": "^8.5",
-        "guzzlehttp/guzzle": "^7.5"
+        "guzzlehttp/guzzle": "^7.5",
+        "ramsey/uuid": "4.2"
     },
     "scripts": {
         "lint": "phplint",
