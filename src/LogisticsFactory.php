@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
-use MagDv\Logistics\Entities\Mintrans\Uuid;
-use Nyholm\Psr7\Request;
+use MagDv\Logistics\Interfaces\MintransGatewayInteface;
 use Psr\Http\Client\ClientInterface;
 
 class LogisticsFactory
@@ -33,7 +32,7 @@ class LogisticsFactory
         return new LogisticsDocuments($this->client, $this->apikey, $this->url);
     }
 
-    public function getMintrans(): MintransGateway
+    public function getMintrans(): MintransGatewayInteface
     {
         return new MintransGateway($this->client, $this->apikey, $this->url);
     }

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace MagDv\Logistics;
 
 use MagDv\Logistics\Entities\Mintrans\Uuid;
+use MagDv\Logistics\Interfaces\MintransGatewayInteface;
 use Nyholm\Psr7\Request;
 
-class MintransGateway extends BaseRequest
+class MintransGateway extends BaseRequest implements MintransGatewayInteface
 {
     public function uuid() : Uuid
     {
