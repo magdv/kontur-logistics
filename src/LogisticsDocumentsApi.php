@@ -13,7 +13,6 @@ use Nyholm\Psr7\Request;
 
 class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApiInterface
 {
-
     /**
      * Отправка титула с подписью
      *
@@ -73,5 +72,4 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
 
         return (new SendWaybillResponse($body['transportationId'] ?? null));
     }
-
 }

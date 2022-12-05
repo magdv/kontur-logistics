@@ -10,7 +10,7 @@ use Nyholm\Psr7\Request;
 
 class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterface
 {
-    public function uuid() : Uuid
+    public function uuid(): Uuid
     {
         $req = new Request(
             'GET',

@@ -1,8 +1,10 @@
-Клиент API для https://kontur.ru/diadoc/logistika
-Свагер https://logist-api-staging.kontur.ru/swagger/index.html
+## Клиент API Контур Логистики.
+
 ---------------------------
 
-Клиент API Контур Логистики.
+- URL - https://kontur.ru/diadoc/logistika
+- SWAGGER - https://logist-api-staging.kontur.ru/swagger/index.html
+---------------------------
 
 ## Пример отправки ТРН
 
@@ -12,7 +14,7 @@ use GuzzleHttp\Client;
 
 declare(strict_types=1);
 
-        // PSR-7 совместимый клиент
+        // PSR-18 совместимый клиент
         $client = new Client();
 
         $request = new SendWaybillRequest();
@@ -27,6 +29,7 @@ declare(strict_types=1);
         $response->transportationId;
 ```
 
-## Тесты
+## Сделаны и протестированы методы
 
-Есть
+- `v1/mintransgateway/uuid`
+- `v1/documents/waybill`

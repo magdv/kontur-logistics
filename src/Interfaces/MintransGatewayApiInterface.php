@@ -8,5 +8,5 @@ use MagDv\Logistics\Entities\Mintrans\Uuid;
 
 interface MintransGatewayApiInterface
 {
-    public function uuid() : Uuid;
+    public function uuid(): Uuid;
 }
