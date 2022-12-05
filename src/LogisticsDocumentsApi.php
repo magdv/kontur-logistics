@@ -18,7 +18,7 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
      *
      * @param \MagDv\Logistics\Entities\Documents\SendWaybillRequest $request
      * @return SendWaybillResponse
-     * @throws \MagDv\Logistics\Exception\LogisticsApiException
+     * @throws \MagDv\Logistics\Exception\LogisticsApiException|\MagDv\Logistics\Exception\LogisticsUnauthorizedException
      */
     public function sendWaybill(SendWaybillRequest $request): SendWaybillResponse
     {

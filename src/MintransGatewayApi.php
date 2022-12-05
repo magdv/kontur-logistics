@@ -10,6 +10,11 @@ use Nyholm\Psr7\Request;
 
 class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterface
 {
+    /**
+     * @return \MagDv\Logistics\Entities\Mintrans\Uuid
+     * @throws \MagDv\Logistics\Exception\LogisticsApiException
+     * @throws \MagDv\Logistics\Exception\LogisticsUnauthorizedException
+     */
     public function uuid(): Uuid
     {
         $req = new Request(
