@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
-use MagDv\Logistics\Interfaces\MintransGatewayInteface;
+use MagDv\Logistics\Interfaces\LogisticsDocumentsApiInterface;
+use MagDv\Logistics\Interfaces\MintransGatewayApiInterface;
 use Psr\Http\Client\ClientInterface;
 
 class LogisticsFactory
@@ -27,13 +28,13 @@ class LogisticsFactory
         $this->client = $client;
     }
 
-    public function getDocuments(): LogisticsDocuments
+    public function getDocuments(): LogisticsDocumentsApiInterface
     {
-        return new LogisticsDocuments($this->client, $this->apikey, $this->url);
+        return new LogisticsDocumentsApi($this->client, $this->apikey, $this->url);
     }
 
-    public function getMintrans(): MintransGatewayInteface
+    public function getMintrans(): MintransGatewayApiInterface
     {
-        return new MintransGateway($this->client, $this->apikey, $this->url);
+        return new MintransGatewayApi($this->client, $this->apikey, $this->url);
     }
 }

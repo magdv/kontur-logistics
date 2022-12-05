@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\Exception\LogisticsApiException;
 use MagDv\Logistics\Exception\LogisticsUnauthorizedException;
-use MagDv\Logistics\LogisticsDocuments;
+use MagDv\Logistics\LogisticsDocumentsApi;
 use Test\base\BaseTest;
 use Test\enums\ConfigNames;
 
@@ -29,7 +29,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $ligistics = new LogisticsDocuments($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
         $response = $ligistics->sendWaybill($request);
 
         $this->assertNotEmpty($response->transportationId);
@@ -53,7 +53,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSignFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.sig';
         $request->waybillSign = $sig;
 
-        $ligistics = new LogisticsDocuments($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
         $this->expectException(LogisticsApiException::class);
         $ligistics->sendWaybill($request);
         $this->expectExceptionMessageMatches('/Идентификатор одного из участников ЭДО не соответствует организации, найденной по ИНН-КПП/m');
@@ -77,7 +77,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSignFileName = ' ';
         $request->waybillSign = $sig;
 
-        $ligistics = new LogisticsDocuments($client, '', getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($client, '', getenv(ConfigNames::URL));
         $this->expectException(LogisticsUnauthorizedException::class);
         $ligistics->sendWaybill($request);
         $this->expectExceptionMessageMatches('/Идентификатор одного из участников ЭДО не соответствует организации, найденной по ИНН-КПП/m');

@@ -8,9 +8,10 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\Entities\Documents\SendWaybillResponse;
+use MagDv\Logistics\Interfaces\LogisticsDocumentsApiInterface;
 use Nyholm\Psr7\Request;
 
-class LogisticsDocuments extends BaseRequest
+class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApiInterface
 {
 
     /**

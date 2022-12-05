@@ -6,7 +6,7 @@ namespace MagDv\Logistics\Interfaces;
 
 use MagDv\Logistics\Entities\Mintrans\Uuid;
 
-interface MintransGatewayInteface
+interface MintransGatewayApiInterface
 {
     public function uuid() : Uuid;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Test\Functional;
 
 use GuzzleHttp\Client;
-use MagDv\Logistics\MintransGateway;
+use MagDv\Logistics\MintransGatewayApi;
 use Ramsey\Uuid\Uuid;
 use Test\base\BaseTest;
 use Test\enums\ConfigNames;
@@ -21,7 +21,7 @@ class MintransGatewayTest extends BaseTest
             ]
         );
 
-        $mintrans = new MintransGateway($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
+        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
         $response = $mintrans->uuid();
 
         $this->assertNotEmpty($response->value);
