@@ -26,6 +26,6 @@ class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterf
 
         $body = json_decode($response->getBody()->getContents(), true);
 
-        return (new Uuid($body));
+        return (new Uuid($body['result']));
     }
 }

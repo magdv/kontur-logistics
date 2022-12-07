@@ -12,7 +12,7 @@ use Test\enums\ConfigNames;
 
 class MintransGatewayTest extends BaseTest
 {
-    public function testSendWaybill()
+    public function testUuid(): void
     {
 
         $client = new Client(
@@ -21,7 +21,7 @@ class MintransGatewayTest extends BaseTest
             ]
         );
 
-        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), getenv(ConfigNames::URL));
+        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), $this->createSerializer(), getenv(ConfigNames::URL));
         $response = $mintrans->uuid();
 
         $this->assertNotEmpty($response->value);

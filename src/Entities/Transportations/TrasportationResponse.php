@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace MagDv\Logistics\Entities\Transportations;
+
+use JMS\Serializer\Annotation as Serializer;
+
+class TrasportationResponse
+{
+    /**
+     * @var \MagDv\Logistics\Entities\Transportations\TransportationInfo
+     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\TransportationInfo")
+     */
+    public $transportationInfo;
+    /**
+     * @var \MagDv\Logistics\Entities\Transportations\DocumentInfo
+     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\DocumentInfo")
+     */
+    public $documentInfo;
+}
