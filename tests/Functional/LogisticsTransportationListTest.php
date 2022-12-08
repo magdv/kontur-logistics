@@ -15,7 +15,6 @@ use Test\enums\ConfigNames;
 
 class LogisticsTransportationListTest extends BaseTest
 {
-
     /** @var Client $id */
     private $client;
 
