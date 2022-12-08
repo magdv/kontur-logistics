@@ -58,3 +58,5 @@ declare(strict_types=1);
 
 - `v1/mintransgateway/uuid`
 - `v1/documents/waybill`
+- `v1/transportations`
+- `v1/transportations/{id}`
