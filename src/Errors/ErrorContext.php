@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Errors;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class ErrorContext
 {
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $additionalProp1;
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $additionalProp2;
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $additionalProp3;
 }

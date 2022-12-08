@@ -6,7 +6,6 @@ namespace Test\Functional;
 
 use GuzzleHttp\Client;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
-use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
@@ -33,7 +32,6 @@ class LogisticsTransportationTest extends BaseTest
 
     public function testTransportationByIdRequest(): void
     {
-
         // получить накладную
         $ligistics = new LogisticsTransportationsApi(
             $this->client,
@@ -46,12 +44,18 @@ class LogisticsTransportationTest extends BaseTest
         // делаю просто проверку, что не пустое и что оно десериализовалось.
         $this->assertNotEmpty($response);
         $this->assertNotEmpty($response->documentInfo->id);
+
+        // проверим, что есть ошибка в ответе
+        $response = $ligistics->transportation('$this->id');
+
+        $this->assertNotEmpty($response);
+        $this->assertEquals(404, $response->statusCode);
+        $this->assertStringContainsString('$this->id', $response->error->message);
     }
 
     /**
      * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
-     * @throws \MagDv\Logistics\Exception\LogisticsUnauthorizedException
      */
     private function createTransportation(): string
     {

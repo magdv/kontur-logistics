@@ -45,6 +45,8 @@ class LogisticsTransportationListTest extends BaseTest
 
         $this->assertNotEmpty($response);
         $this->assertTrue(count($response->items) > 0);
+        $this->assertTrue($response->totalCount > 0);
+        $this->assertEquals(false, $response->hasMoreResults);
 
         // From - to Этот тест может в будущем падать, т.к. я не могу гарантировать, что на стенде будет что - то находиться
         $listRequest->From = (new \DateTimeImmutable("now - 5 year"));
@@ -62,6 +64,7 @@ class LogisticsTransportationListTest extends BaseTest
 
         $this->assertNotEmpty($response);
         $this->assertTrue(count($response->items) === 1);
+        $this->assertEquals(false, $response->hasMoreResults);
         $id = $response->items[0]->documentInfo->id;
 
         // Skip
@@ -85,7 +88,6 @@ class LogisticsTransportationListTest extends BaseTest
     /**
      * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
-     * @throws \MagDv\Logistics\Exception\LogisticsUnauthorizedException
      */
     private function createTransportation(): string
     {

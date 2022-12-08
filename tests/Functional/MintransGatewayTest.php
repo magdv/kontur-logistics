@@ -24,7 +24,7 @@ class MintransGatewayTest extends BaseTest
         $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), $this->createSerializer(), getenv(ConfigNames::URL));
         $response = $mintrans->uuid();
 
-        $this->assertNotEmpty($response->value);
-        $this->assertTrue(Uuid::isValid($response->value));
+        $this->assertNotEmpty($response->result);
+        $this->assertTrue(Uuid::isValid($response->result));
     }
 }

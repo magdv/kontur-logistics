@@ -19,7 +19,11 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
         $response = $this->send($request);
 
-        return $this->serializer->deserialize($response->getBody()->getContents(), TrasportationResponse::class, 'json');
+        /** @var TrasportationResponse $dto */
+        $dto = $this->serializer->deserialize($response->getBody()->getContents(), TrasportationResponse::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
     }
 
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse
@@ -58,6 +62,10 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
         $response = $this->send($request);
 
-        return $this->serializer->deserialize($response->getBody()->getContents(), TrasportationListResponse::class, 'json');
+        /** @var TrasportationListResponse $dto */
+        $dto = $this->serializer->deserialize($response->getBody()->getContents(), TrasportationListResponse::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
     }
 }

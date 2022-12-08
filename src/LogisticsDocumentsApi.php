@@ -18,7 +18,7 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
      *
      * @param \MagDv\Logistics\Entities\Documents\SendWaybillRequest $request
      * @return SendWaybillResponse
-     * @throws \MagDv\Logistics\Exception\LogisticsApiException|\MagDv\Logistics\Exception\LogisticsUnauthorizedException
+     * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     public function sendWaybill(SendWaybillRequest $request): SendWaybillResponse
     {
@@ -68,8 +68,10 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
 
         $response = $this->send($req);
 
-        $body = json_decode($response->getBody()->getContents(), true);
+        /** @var SendWaybillResponse $body */
+        $body = $this->serializer->deserialize($response->getBody()->getContents(), SendWaybillResponse::class, 'json');
+        $body->statusCode = $response->getStatusCode();
 
-        return (new SendWaybillResponse($body['transportationId'] ?? null));
+        return $body;
     }
 }

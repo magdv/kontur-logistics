@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Entities\Documents;
 
-class SendWaybillResponse
-{
-    /** @var string */
-    public $transportationId;
+use JMS\Serializer\Annotation as Serializer;
+use MagDv\Logistics\BaseResponse;
 
-    public function __construct(?string $transportationId = null)
-    {
-        $this->transportationId = $transportationId;
-    }
+class SendWaybillResponse extends BaseResponse
+{
+    /**
+     * @Serializer\Type("string")
+     * @var string
+     */
+    public $transportationId;
 }

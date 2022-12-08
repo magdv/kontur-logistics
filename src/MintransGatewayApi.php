@@ -13,7 +13,6 @@ class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterf
     /**
      * @return \MagDv\Logistics\Entities\Mintrans\Uuid
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
-     * @throws \MagDv\Logistics\Exception\LogisticsUnauthorizedException
      */
     public function uuid(): Uuid
     {
@@ -24,8 +23,10 @@ class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterf
 
         $response = $this->send($req);
 
-        $body = json_decode($response->getBody()->getContents(), true);
+        /** @var Uuid $body */
+        $body = $this->serializer->deserialize($response->getBody()->getContents(), Uuid::class, 'json');
+        $body->statusCode = $response->getStatusCode();
 
-        return (new Uuid($body['result']));
+        return $body;
     }
 }

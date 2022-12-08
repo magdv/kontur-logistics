@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Entities\Mintrans;
 
-class Uuid
-{
-    /** @var string */
-    public $value;
+use JMS\Serializer\Annotation as Serializer;
+use MagDv\Logistics\BaseResponse;
 
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+class Uuid extends BaseResponse
+{
+    /**
+     * @Serializer\Type("string")
+     * @var string
+     */
+    public $result;
 }

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace MagDv\Logistics\Entities\Transportations;
 
 use JMS\Serializer\Annotation as Serializer;
+use MagDv\Logistics\BaseResponse;
 
-class TrasportationResponse
+class TrasportationResponse extends BaseResponse
 {
     /**
      * @var \MagDv\Logistics\Entities\Transportations\TransportationInfo

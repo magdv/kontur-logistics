@@ -4,18 +4,38 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Errors;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Error
 {
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $code;
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $message;
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $target;
-    /** @var null|string[] */
+    /**
+     * @Serializer\Type("array<string>")
+     * @var null|string[]
+     */
     public $details;
-    /** @var \MagDv\Logistics\Errors\ErrorContext|null */
+    /**
+     * @Serializer\Type("MagDv\Logistics\Errors\ErrorContext")
+     * @var \MagDv\Logistics\Errors\ErrorContext|null
+     */
     public $context;
-    /** @var null|string */
+    /**
+     * @Serializer\Type("string")
+     * @var null|string
+     */
     public $innerError;
 }

@@ -6,7 +6,6 @@ namespace MagDv\Logistics;
 
 use JMS\Serializer\SerializerInterface;
 use MagDv\Logistics\Exception\LogisticsApiException;
-use MagDv\Logistics\Exception\LogisticsUnauthorizedException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -50,19 +49,6 @@ class BaseRequest
             throw new LogisticsApiException('Logistics client exception while sendRequest : ' . $e->getMessage());
         }
 
-        if ($response->getStatusCode() === 401) {
-            throw new LogisticsUnauthorizedException($response->getBody()->getContents(), $response->getStatusCode());
-        }
-
-        if (!$this->isOk($response)) {
-            throw new LogisticsApiException($response->getBody()->getContents(), $response->getStatusCode());
-        }
-
         return $response;
-    }
-
-    private function isOk(ResponseInterface $rsp): bool
-    {
-        return $rsp->getStatusCode() >= 200 && $rsp->getStatusCode() < 300;
     }
 }

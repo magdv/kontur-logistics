@@ -6,8 +6,6 @@ namespace Test\Functional;
 
 use GuzzleHttp\Client;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
-use MagDv\Logistics\Exception\LogisticsApiException;
-use MagDv\Logistics\Exception\LogisticsUnauthorizedException;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use Test\base\BaseTest;
 use Test\enums\ConfigNames;
@@ -54,9 +52,9 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSign = $sig;
 
         $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), $this->createSerializer(), getenv(ConfigNames::URL));
-        $this->expectException(LogisticsApiException::class);
-        $ligistics->sendWaybill($request);
-        $this->expectExceptionMessageMatches('/Идентификатор одного из участников ЭДО не соответствует организации, найденной по ИНН-КПП/m');
+        $response = $ligistics->sendWaybill($request);
+        $this->assertEquals(400, $response->statusCode);
+        $this->assertEquals('MessageToPost.DocumentAttachments[0]: Invalid signature', $response->error->message);
     }
 
     public function testSendWaybillUnathorized(): void
@@ -77,9 +75,9 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSignFileName = ' ';
         $request->waybillSign = $sig;
 
-        $ligistics = new LogisticsDocumentsApi($client, '', $this->createSerializer(), getenv(ConfigNames::URL));
-        $this->expectException(LogisticsUnauthorizedException::class);
-        $ligistics->sendWaybill($request);
-        $this->expectExceptionMessageMatches('/Идентификатор одного из участников ЭДО не соответствует организации, найденной по ИНН-КПП/m');
+        $logisticsDocumentsApi = new LogisticsDocumentsApi($client, '', $this->createSerializer(), getenv(ConfigNames::URL));
+        $response = $logisticsDocumentsApi->sendWaybill($request);
+        $this->assertEquals(401, $response->statusCode);
+        $this->assertStringContainsString('Please specify APIKEY in header x-kontur-apikey', $response->error->message);
     }
 }
