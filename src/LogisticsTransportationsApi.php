@@ -9,6 +9,7 @@ use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
 use MagDv\Logistics\Interfaces\LogisticsTransportationsApiInterface;
 use Nyholm\Psr7\Request;
+use Nyholm\Psr7\Uri;
 
 class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransportationsApiInterface
 {
@@ -23,9 +24,36 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse
     {
+        $queryData = [];
+        if ($requestList->From) {
+            $queryData['From'] = $requestList->From->format('Y-m-d\TH:i:sP');
+        }
+
+        if ($requestList->To) {
+            $queryData['To'] = $requestList->To->format('Y-m-d\TH:i:sP');
+        }
+
+        if ($requestList->Take) {
+            $queryData['Take'] = $requestList->Take;
+        }
+
+        if ($requestList->Skip) {
+            $queryData['Skip'] = $requestList->Skip;
+        }
+
+        if ($requestList->Status) {
+            $queryData['Status'] = $requestList->Status;
+        }
+
+        if ($requestList->SortDirection) {
+            $queryData['SortDirection'] = $requestList->SortDirection;
+        }
+
+        $uri = new Uri($this->url . 'v1/transportations' . ($queryData ? '?' . http_build_query($queryData) : ''));
+
         $request = new Request(
             'GET',
-            $this->url . 'v1/transportations'
+            $uri
         );
 
         $response = $this->send($request);

@@ -6,9 +6,9 @@ namespace MagDv\Logistics\Entities\Transportations;
 
 class TransportationListRequest
 {
-    /** @var string|null $From */
+    /** @var \DateTimeImmutable|null $From */
     public $From;
-    /** @var string|null $To */
+    /** @var \DateTimeImmutable|null $To */
     public $To;
     /** @var string|null $Status */
     public $Status;

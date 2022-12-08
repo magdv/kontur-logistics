@@ -48,24 +48,6 @@ class LogisticsTransportationTest extends BaseTest
         $this->assertNotEmpty($response->documentInfo->id);
     }
 
-    public function testTransportationListRequest(): void
-    {
-        // получить список накладных
-        $ligistics = new LogisticsTransportationsApi(
-            $this->client,
-            getenv(ConfigNames::APIKEY),
-            $this->createSerializer(),
-            getenv(ConfigNames::URL)
-        );
-
-        $listRequest = new TransportationListRequest();
-
-        $response = $ligistics->transportationsList($listRequest);
-
-        $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) > 0);
-    }
-
     /**
      * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
