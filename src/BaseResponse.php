@@ -23,4 +23,9 @@ class BaseResponse
      * @var \MagDv\Logistics\Errors\Error
      */
     public $error;
+
+    public function isOk(): bool
+    {
+        return $this->statusCode >= 200 && $this->statusCode < 300;
+    }
 }

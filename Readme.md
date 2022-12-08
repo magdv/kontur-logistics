@@ -41,6 +41,16 @@ declare(strict_types=1);
         $logistics = new LogisticsDocuments($client, 'apikey', $serializer, 'URL'));
         $response = $logistics->sendWaybill($request);
 
+        // Текущий статус ответа
+        echo $response->statusCode;
+        // Проверка, что удачный запрос
+        echo $response->isOk();
+
+        // Проверка статуса и вывод ошибки
+        if (!$response->isOk()) {
+         echo $response->error->message;
+        }
+
         $response->transportationId;
 ```
 
