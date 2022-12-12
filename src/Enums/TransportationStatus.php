@@ -48,7 +48,7 @@ class TransportationStatus
      */
     public const ON_THE_WAY = 'OnTheWay';
     /**
-     * На подтверждении Водителем
+     * На подписи Водителем
      */
     public const WAYBILL_DELIVERY_WAIT_DRIVER_CONFIRMATION = 'WaybillDeliveryWaitDriverConfirmation';
     /**
@@ -75,6 +75,10 @@ class TransportationStatus
      * Завершен
      */
     public const COMPLETED = 'Completed';
+    /**
+     * Отказ в подписи на выгрузке
+     */
+    public const WAYBILL_DELIVERY_SIGNATURE_REJECT = 'WaybillDeliverySignatureReject';
     /**
      * Аннулирован
      */
@@ -142,7 +146,7 @@ class TransportationStatus
             self::WAYBILL_RECEPTION_WAIT_CARRIER_SIGNATURE => 'На подписи Перевозчика',
             self::WAYBILL_RECEPTION_WAIT_CARRIER_SIGNATURE_DELIVERY => 'Обработка подписи Перевозчика',
             self::ON_THE_WAY => 'В пути',
-            self::WAYBILL_DELIVERY_WAIT_DRIVER_CONFIRMATION => 'На подтверждении Водителем',
+            self::WAYBILL_DELIVERY_WAIT_DRIVER_CONFIRMATION => 'На подписи Водителем',
             self::WAYBILL_DELIVERY_WAIT_CONSIGNEE_CONFIRMATION => 'На подтверждении Кладовщиком (выгрузка)',
             self::WAYBILL_DELIVERY_WAIT_CONSIGNEE_SIGNATURE => 'На подписи Грузополучателя',
             self::WAYBILL_DELIVERY_WAIT_CONSIGNEE_SIGNATURE_DELIVERY => 'Обработка подписи Грузополучателя',
@@ -160,7 +164,8 @@ class TransportationStatus
             self::WAYBILL_CONSIGNOR_COST_SIGNATURE_REJECT => 'Отклонена COST накладная отправителя',
             self::INVALID => 'Ошибка в ТРН',
             self::CARRIER_WAITING_FOR_WAYBILL_RECEPTION_SIGNED => 'Перевозчик ожидает подписи выписки накладной',
-            self::CARRIER_WAITING_FOR_WAYBILL_DELIVERY_SIGNED => 'Перевозчик ожидает подписи накладной'
+            self::CARRIER_WAITING_FOR_WAYBILL_DELIVERY_SIGNED => 'Перевозчик ожидает подписи накладной',
+            self::WAYBILL_DELIVERY_SIGNATURE_REJECT => 'Отказ в подписи на выгрузке'
         ];
     }
 
