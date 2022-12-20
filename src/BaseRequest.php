@@ -34,7 +34,7 @@ class BaseRequest
     public function __construct(
         ClientInterface $client,
         string $apiKey,
-        ?string $serializerCachePath,
+        ?string $serializerCachePath = null,
         string $url = 'https://logist-api.kontur.ru/',
         bool $serializerDebug = false
     ) {
