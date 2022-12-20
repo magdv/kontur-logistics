@@ -36,7 +36,7 @@ class LogisticsTransportationTest extends BaseTest
         $ligistics = new LogisticsTransportationsApi(
             $this->client,
             getenv(ConfigNames::APIKEY),
-            $this->createSerializer(),
+            null,
             getenv(ConfigNames::URL)
         );
         $response = $ligistics->transportation($this->id);
@@ -65,7 +65,7 @@ class LogisticsTransportationTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $ligistics = new LogisticsDocumentsApi($this->client, getenv(ConfigNames::APIKEY), $this->createSerializer(), getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($this->client, getenv(ConfigNames::APIKEY), null, getenv(ConfigNames::URL));
 
         return $ligistics->sendWaybill($request)->transportationId;
     }

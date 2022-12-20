@@ -18,17 +18,6 @@ declare(strict_types=1);
 
         $cachePath = 'bla/bla/bla' // Не обязательно, но желательно. Влияет на скорость
 
-        $builder = SerializerBuilder::create()
-            ->setPropertyNamingStrategy(
-                new SerializedNameAnnotationStrategy(
-                    new IdenticalPropertyNamingStrategy()
-                )
-            )
-            ->setCacheDir($cachePath)
-            ->setDebug($debug)
-        ;
-        $serializer = $builder->build();
-
         // PSR-18 совместимый клиент
         $client = new Client();
 
@@ -38,7 +27,7 @@ declare(strict_types=1);
         $request->waybillSignFileName = 'sign_name.sig';
         $request->waybillSign = 'sig_content';
 
-        $logistics = new LogisticsDocuments($client, 'apikey', $serializer, 'URL'));
+        $logistics = new LogisticsDocuments($client, 'apikey', $cachePath, 'URL', $debug));
         $response = $logistics->sendWaybill($request);
 
         // Текущий статус ответа
