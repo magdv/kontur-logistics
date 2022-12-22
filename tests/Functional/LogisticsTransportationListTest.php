@@ -11,6 +11,7 @@ use MagDv\Logistics\Enums\TransportationStatus;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
+use Test\base\LocalSerializer;
 use Test\enums\ConfigNames;
 
 class LogisticsTransportationListTest extends BaseTest
@@ -35,7 +36,7 @@ class LogisticsTransportationListTest extends BaseTest
         $ligistics = new LogisticsTransportationsApi(
             $this->client,
             getenv(ConfigNames::APIKEY),
-            null,
+            new LocalSerializer(),
             getenv(ConfigNames::URL)
         );
 
@@ -97,7 +98,7 @@ class LogisticsTransportationListTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $ligistics = new LogisticsDocumentsApi($this->client, getenv(ConfigNames::APIKEY), null, getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($this->client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
 
         return $ligistics->sendWaybill($request)->transportationId;
     }

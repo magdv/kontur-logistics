@@ -9,14 +9,27 @@
 ## Пример отправки ТРН
 
 ```php
-<?php
-use GuzzleHttp\Client;
+Надо сделать свой локальный класс для сериализатора
 
 declare(strict_types=1);
-        
-        $debug = false;  // в дев режиме можете включить, чтобы видеть ошибки
 
-        $cachePath = 'bla/bla/bla' // Не обязательно, но желательно. Влияет на скорость
+use GuzzleHttp\Client;
+use MagDv\Logistics\LogisticsSerializer;
+
+class LocalSerializer extends LogisticsSerializer
+{
+    public function getCachePath(): ?string
+    {
+        return null; // здесь указываем путь, куда кешируем. Не обязательно, но желательно. Влияет на скорость
+    }
+
+    public function getIsDebug(): bool
+    {
+        return true; // тут надо указать, включать ли дебаг в дев режиме можете включить, чтобы видеть ошибки
+    }
+}
+       
+        $serializer = new LocalSerializer();
 
         // PSR-18 совместимый клиент
         $client = new Client();
@@ -27,7 +40,7 @@ declare(strict_types=1);
         $request->waybillSignFileName = 'sign_name.sig';
         $request->waybillSign = 'sig_content';
 
-        $logistics = new LogisticsDocuments($client, 'apikey', $cachePath, 'URL', $debug));
+        $logistics = new LogisticsDocuments($client, 'apikey', $srializer, 'URL'));
         $response = $logistics->sendWaybill($request);
 
         // Текущий статус ответа

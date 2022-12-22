@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use MagDv\Logistics\MintransGatewayApi;
 use Ramsey\Uuid\Uuid;
 use Test\base\BaseTest;
+use Test\base\LocalSerializer;
 use Test\enums\ConfigNames;
 
 class MintransGatewayTest extends BaseTest
@@ -21,7 +22,7 @@ class MintransGatewayTest extends BaseTest
             ]
         );
 
-        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), null, getenv(ConfigNames::URL));
+        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
         $response = $mintrans->uuid();
 
         $this->assertNotEmpty($response->result);

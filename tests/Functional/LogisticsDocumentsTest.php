@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use Test\base\BaseTest;
+use Test\base\LocalSerializer;
 use Test\enums\ConfigNames;
 
 class LogisticsDocumentsTest extends BaseTest
@@ -27,7 +28,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), null, getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
         $response = $ligistics->sendWaybill($request);
 
         $this->assertNotEmpty($response->transportationId);
@@ -51,7 +52,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSignFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.sig';
         $request->waybillSign = $sig;
 
-        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), null, getenv(ConfigNames::URL));
+        $ligistics = new LogisticsDocumentsApi($client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
         $response = $ligistics->sendWaybill($request);
         $this->assertEquals(400, $response->statusCode);
         $this->assertEquals('MessageToPost.DocumentAttachments[0]: Invalid signature', $response->error->message);
@@ -75,7 +76,7 @@ class LogisticsDocumentsTest extends BaseTest
         $request->waybillSignFileName = ' ';
         $request->waybillSign = $sig;
 
-        $logisticsDocumentsApi = new LogisticsDocumentsApi($client, '', null, getenv(ConfigNames::URL));
+        $logisticsDocumentsApi = new LogisticsDocumentsApi($client, '', new LocalSerializer(), getenv(ConfigNames::URL));
         $response = $logisticsDocumentsApi->sendWaybill($request);
         $this->assertEquals(401, $response->statusCode);
         $this->assertStringContainsString('Please specify APIKEY in header x-kontur-apikey', $response->error->message);

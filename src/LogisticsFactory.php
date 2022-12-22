@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MagDv\Logistics;
 
 use MagDv\Logistics\Interfaces\LogisticsDocumentsApiInterface;
+use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
 use MagDv\Logistics\Interfaces\LogisticsTransportationsApiInterface;
 use MagDv\Logistics\Interfaces\MintransGatewayApiInterface;
 use Psr\Http\Client\ClientInterface;
@@ -22,26 +23,20 @@ class LogisticsFactory
     /** @var string  */
     protected $url;
     /**
-     * @var null|string
+     * @var \MagDv\Logistics\Interfaces\LogisticsSerializerInterface
      */
-    protected $serializerCachePath;
-    /**
-     * @var bool
-     */
-    private $serializerDebug;
+    private $serializer;
 
     public function __construct(
         ClientInterface $client,
         string $apiKey,
-        ?string $serializerCachePath = null,
-        string $url = 'https://logist-api.kontur.ru/',
-        bool $serializerDebug = false
+        LogisticsSerializerInterface $serializer,
+        string $url = 'https://logist-api.kontur.ru/'
     ) {
         $this->apikey = $apiKey;
         $this->url = $url;
         $this->client = $client;
-        $this->serializerCachePath = $serializerCachePath;
-        $this->serializerDebug = $serializerDebug;
+        $this->serializer = $serializer;
     }
 
     public function getDocuments(): LogisticsDocumentsApiInterface
@@ -49,9 +44,8 @@ class LogisticsFactory
         return new LogisticsDocumentsApi(
             $this->client,
             $this->apikey,
-            $this->serializerCachePath,
-            $this->url,
-            $this->serializerDebug
+            $this->serializer,
+            $this->url
         );
     }
 
@@ -60,9 +54,8 @@ class LogisticsFactory
         return new MintransGatewayApi(
             $this->client,
             $this->apikey,
-            $this->serializerCachePath,
-            $this->url,
-            $this->serializerDebug
+            $this->serializer,
+            $this->url
         );
     }
 
@@ -71,9 +64,8 @@ class LogisticsFactory
         return new LogisticsTransportationsApi(
             $this->client,
             $this->apikey,
-            $this->serializerCachePath,
-            $this->url,
-            $this->serializerDebug
+            $this->serializer,
+            $this->url
         );
     }
 }
