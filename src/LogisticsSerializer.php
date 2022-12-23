@@ -8,6 +8,7 @@ use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
 use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
 
 abstract class LogisticsSerializer implements LogisticsSerializerInterface
@@ -19,6 +20,13 @@ abstract class LogisticsSerializer implements LogisticsSerializerInterface
                 new IdenticalPropertyNamingStrategy()
             )
         )
+            ->setSerializationVisitor(
+                'json',
+                (new JsonSerializationVisitorFactory())
+                    ->setOptions(
+                        JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | ($this->getIsDebug() ? JSON_PRETTY_PRINT : 0)
+                    )
+            )
             ->addDefaultDeserializationVisitors()
             ->setDebug($this->getIsDebug());
 
