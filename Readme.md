@@ -16,23 +16,35 @@ declare(strict_types=1);
 use GuzzleHttp\Client;
 use MagDv\Logistics\LogisticsSerializer;
 
+class LocalHttpClient implements HttpClientInterface
+{
+
+    public function getClient(): ClientInterface
+    {
+        // PSR-18 совместимый клиент
+        return new Client(
+            [
+                'debug' => true,
+            ]
+        );
+    }
+}
+
 class LocalSerializer extends LogisticsSerializer
 {
     public function getCachePath(): ?string
     {
-        return null; // здесь указываем путь, куда кешируем. Не обязательно, но желательно. Влияет на скорость
+        return 'dfdf/df/df/df'; // здесь указываем путь, куда кешируем. Не обязательно, но желательно. Влияет на скорость
     }
 
     public function getIsDebug(): bool
     {
-        return true; // тут надо указать, включать ли дебаг в дев режиме можете включить, чтобы видеть ошибки
+        return false; // тут надо указать, включать ли дебаг в дев режиме можете включить, чтобы видеть ошибки
     }
 }
        
         $serializer = new LocalSerializer();
-
-        // PSR-18 совместимый клиент
-        $client = new Client();
+        $client = new LocalHttpClient();
 
         $request = new SendWaybillRequest();
         $request->waybill = 'xml content';

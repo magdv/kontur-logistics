@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace MagDv\Logistics;
 
 use MagDv\Logistics\Exception\LogisticsApiException;
+use MagDv\Logistics\Interfaces\HttpClientInterface;
 use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
 use Psr\Http\Client\ClientExceptionInterface;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,7 +21,7 @@ class BaseRequest
     /** @var string */
     private $apikey;
 
-    /** @var string  */
+    /** @var string */
     protected $url;
     /**
      * @var \JMS\Serializer\SerializerInterface
@@ -29,14 +29,14 @@ class BaseRequest
     protected $serializer;
 
     public function __construct(
-        ClientInterface $client,
+        HttpClientInterface $client,
         string $apiKey,
         LogisticsSerializerInterface $serializer,
         string $url = 'https://logist-api.kontur.ru/'
     ) {
         $this->apikey = $apiKey;
         $this->url = $url;
-        $this->client = $client;
+        $this->client = $client->getClient();
         $this->serializer = $serializer->getSerializer();
     }
 
@@ -46,7 +46,7 @@ class BaseRequest
             $req = $request->withAddedHeader('x-kontur-apikey', $this->apikey);
             $response = $this->client->sendRequest($req);
         } catch (ClientExceptionInterface $e) {
-            throw new LogisticsApiException('Logistics client exception while sendRequest : ' . $e->getMessage());
+            throw new LogisticsApiException('Logistics client exception: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
         return $response;

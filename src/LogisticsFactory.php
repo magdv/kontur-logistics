@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
+use MagDv\Logistics\Interfaces\HttpClientInterface;
 use MagDv\Logistics\Interfaces\LogisticsDocumentsApiInterface;
 use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
 use MagDv\Logistics\Interfaces\LogisticsTransportationsApiInterface;
 use MagDv\Logistics\Interfaces\MintransGatewayApiInterface;
-use Psr\Http\Client\ClientInterface;
 
 class LogisticsFactory
 {
     /**
-     * @var \Psr\Http\Client\ClientInterface
+     * @var HttpClientInterface
      */
     private $client;
 
@@ -28,7 +28,7 @@ class LogisticsFactory
     private $serializer;
 
     public function __construct(
-        ClientInterface $client,
+        HttpClientInterface $client,
         string $apiKey,
         LogisticsSerializerInterface $serializer,
         string $url = 'https://logist-api.kontur.ru/'

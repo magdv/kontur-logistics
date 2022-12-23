@@ -4,28 +4,24 @@ declare(strict_types=1);
 
 namespace Test\Functional;
 
-use GuzzleHttp\Client;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
 use MagDv\Logistics\Enums\TransportationStatus;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
+use Test\base\LocalHttpClient;
 use Test\base\LocalSerializer;
 use Test\enums\ConfigNames;
 
 class LogisticsTransportationListTest extends BaseTest
 {
-    /** @var Client $id */
+    /** @var \MagDv\Logistics\Interfaces\HttpClientInterface $id */
     private $client;
 
     public function setUp(): void
     {
-        $this->client = new Client(
-            [
-                'debug' => true,
-            ]
-        );
+        $this->client = new LocalHttpClient();
         // создать накладную
         $this->id = $this->createTransportation();
     }
