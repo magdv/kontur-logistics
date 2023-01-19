@@ -17,7 +17,7 @@ use Test\enums\ConfigNames;
 class LogisticsTransportationListTest extends BaseTest
 {
     /** @var \MagDv\Logistics\Interfaces\HttpClientInterface $id */
-    private $client;
+    private \Test\base\LocalHttpClient $client;
 
     public function setUp(): void
     {
@@ -41,7 +41,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) > 0);
+        $this->assertTrue(count((array) $response->items) > 0);
         $this->assertTrue($response->totalCount > 0);
         $this->assertEquals(false, $response->hasMoreResults);
 
@@ -51,7 +51,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) === 0);
+        $this->assertTrue(count((array) $response->items) === 0);
 
         // Take
         $listRequest->From = null;
@@ -60,7 +60,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) === 1);
+        $this->assertTrue(count((array) $response->items) === 1);
         $this->assertEquals(false, $response->hasMoreResults);
         $id = $response->items[0]->documentInfo->id;
 
@@ -69,7 +69,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) === 1);
+        $this->assertTrue(count((array) $response->items) === 1);
         $this->assertNotEquals($id, $response->items[0]->documentInfo->id);
 
         // Status тут тоже может отвалиться в будущем, если что - то изменится на стенде контура
@@ -79,7 +79,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count($response->items) === 0);
+        $this->assertTrue(count((array) $response->items) === 0);
     }
 
     /**

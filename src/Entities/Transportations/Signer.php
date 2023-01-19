@@ -10,43 +10,43 @@ class Signer
 {
     /**
      * @Serializer\Type("string")
-     * @var string $lastName
+     * @var null|string $lastName
      */
     public $lastName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $firstName
+     * @var null|string $firstName
      */
     public $firstName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $middleName
+     * @var null|string $middleName
      */
     public $middleName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $position
+     * @var null|string $position
      */
     public $position;
 
     /**
      * @Serializer\Type("bool")
-     * @var bool $isDriver
+     * @var null|bool $isDriver
      */
     public $isDriver;
 
     /**
      * @Serializer\Type("string")
-     * @var string $phone
+     * @var null|string $phone
      */
     public $phone;
 
     /**
      * @Serializer\Type("string")
-     * @var string $driverLicense
+     * @var null|string $driverLicense
      */
     public $driverLicense;
 }

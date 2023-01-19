@@ -10,13 +10,13 @@ class Document
 {
     /**
      * @Serializer\Type("string")
-     * @var string $number
+     * @var null|string $number
      */
     public $number;
 
     /**
      * @Serializer\Type("string")
-     * @var string $date
+     * @var null|string $date
      */
     public $date;
 }

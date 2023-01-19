@@ -10,13 +10,13 @@ class Drivers
 {
     /**
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Driver>")
-     * @var \MagDv\Logistics\Entities\Transportations\Driver[]
+     * @var null|\MagDv\Logistics\Entities\Transportations\Driver[]
      */
     public $previousDrivers;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Driver")
-     * @var \MagDv\Logistics\Entities\Transportations\Driver
+     * @var null|\MagDv\Logistics\Entities\Transportations\Driver
      */
     public $currentDriver;
 }

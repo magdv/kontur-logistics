@@ -10,12 +10,12 @@ use MagDv\Logistics\BaseResponse;
 class TrasportationResponse extends BaseResponse
 {
     /**
-     * @var \MagDv\Logistics\Entities\Transportations\TransportationInfo
+     * @var null|\MagDv\Logistics\Entities\Transportations\TransportationInfo
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\TransportationInfo")
      */
     public $transportationInfo;
     /**
-     * @var \MagDv\Logistics\Entities\Transportations\DocumentInfo
+     * @var null|\MagDv\Logistics\Entities\Transportations\DocumentInfo
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\DocumentInfo")
      */
     public $documentInfo;

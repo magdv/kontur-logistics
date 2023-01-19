@@ -10,13 +10,13 @@ class Participants
 {
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Organizations")
-     * @var \MagDv\Logistics\Entities\Transportations\Organizations $organizations
+     * @var null|\MagDv\Logistics\Entities\Transportations\Organizations $organizations
      */
     public $organizations;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Drivers")
-     * @var \MagDv\Logistics\Entities\Transportations\Drivers $drivers
+     * @var null|\MagDv\Logistics\Entities\Transportations\Drivers $drivers
      */
     public $drivers;
 }

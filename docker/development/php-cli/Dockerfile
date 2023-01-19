@@ -1,4 +1,4 @@
-FROM php:7.2-cli-alpine
+FROM php:7.4-cli-alpine
 
 ENV XDEBUG_VERSION 3.1.2
 RUN apk update && apk upgrade
@@ -8,19 +8,27 @@ RUN apk add --no-cache bash coreutils git \
     && docker-php-ext-configure xdebug --enable-xdebug-dev \
     && docker-php-ext-install xdebug
 
+RUN set -xe \
+    && apk add --update \
+        icu \
+    && apk add --no-cache --virtual .php-deps \
+        make \
+    && apk add --no-cache --virtual .build-deps \
+        $PHPIZE_DEPS \
+        zlib-dev \
+        icu-dev \
+        g++ \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install \
+        intl \
+    && docker-php-ext-enable intl \
+    && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
+    && apk del .build-deps \
+    && rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
+
 RUN apk add --no-cache unzip
 
 RUN apk update && apk add curl bash unzip build-base autoconf automake libtool make g++
-ENV PROTOBUF_VERSION 3.6.1
-ENV PROTOBUF_URL https://github.com/google/protobuf/releases/download/v"$PROTOBUF_VERSION"/protobuf-cpp-"$PROTOBUF_VERSION".zip
-RUN curl --silent -L -o protobuf.zip "$PROTOBUF_URL" && \
-    unzip protobuf.zip && \
-    cd protobuf-"$PROTOBUF_VERSION" && \
-    ./configure && \
-    make -j$(nproc) && \
-    make install && \
-    cd .. && rm protobuf.zip
-
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 COPY ./common/php/conf.d /usr/local/etc/php/conf.d

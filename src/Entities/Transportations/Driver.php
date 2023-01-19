@@ -10,31 +10,31 @@ class Driver
 {
     /**
      * @Serializer\Type("string")
-     * @var string $lastName
+     * @var null|string $lastName
      */
     public $lastName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $firstName
+     * @var null|string $firstName
      */
     public $firstName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $middleName
+     * @var null|string $middleName
      */
     public $middleName;
 
     /**
      * @Serializer\Type("string")
-     * @var string $licenseId
+     * @var null|string $licenseId
      */
     public $licenseId;
 
     /**
      * @Serializer\Type("string")
-     * @var string $phone
+     * @var null|string $phone
      */
     public $phone;
 }

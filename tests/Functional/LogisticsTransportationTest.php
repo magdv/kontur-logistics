@@ -14,11 +14,10 @@ use Test\enums\ConfigNames;
 
 class LogisticsTransportationTest extends BaseTest
 {
-    /** @var string $id */
-    private $id;
+    private string $id;
 
     /** @var \MagDv\Logistics\Interfaces\HttpClientInterface */
-    private $client;
+    private \Test\base\LocalHttpClient $client;
 
     public function setUp(): void
     {

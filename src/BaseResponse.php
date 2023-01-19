@@ -15,7 +15,7 @@ class BaseResponse
     public $statusCode;
     /**
      * @Serializer\Type("string")
-     * @var string
+     * @var null|string
      */
     public $traceId;
     /**

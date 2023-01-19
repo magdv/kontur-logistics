@@ -10,31 +10,31 @@ class Organization
 {
     /**
      * @Serializer\Type("string")
-     * @var string $diadocBoxId
+     * @var null|string $diadocBoxId
      */
     public $diadocBoxId;
 
     /**
      * @Serializer\Type("string")
-     * @var string $name
+     * @var null|string $name
      */
     public $name;
 
     /**
      * @Serializer\Type("string")
-     * @var string $inn
+     * @var null|string $inn
      */
     public $inn;
 
     /**
      * @Serializer\Type("string")
-     * @var string $kpp
+     * @var null|string $kpp
      */
     public $kpp;
 
     /**
      * @Serializer\Type("string")
-     * @var string $role
+     * @var null|string $role
      */
     public $role;
 }

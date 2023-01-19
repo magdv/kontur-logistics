@@ -11,7 +11,7 @@ class SendWaybillResponse extends BaseResponse
 {
     /**
      * @Serializer\Type("string")
-     * @var string
+     * @var null|string
      */
     public $transportationId;
 }

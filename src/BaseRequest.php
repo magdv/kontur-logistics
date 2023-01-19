@@ -13,13 +13,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class BaseRequest
 {
-    /**
-     * @var \Psr\Http\Client\ClientInterface
-     */
-    private $client;
+    private \Psr\Http\Client\ClientInterface $client;
 
-    /** @var string */
-    private $apikey;
+    private string $apikey;
 
     /** @var string */
     protected $url;

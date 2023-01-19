@@ -10,31 +10,31 @@ class Approval
 {
     /**
      * @Serializer\Type("string")
-     * @var string $type
+     * @var null|string $type
      */
     public $type;
 
     /**
      * @Serializer\Type("string")
-     * @var string$dateTime
+     * @var null|string$dateTime
      */
     public $dateTime;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Signer")
-     * @var \MagDv\Logistics\Entities\Transportations\Signer $signer
+     * @var null|\MagDv\Logistics\Entities\Transportations\Signer $signer
      */
     public $signer;
 
     /**
      * @Serializer\Type("string")
-     * @var string $comment
+     * @var null|string $comment
      */
     public $comment;
 
     /**
      * @Serializer\Type("bool")
-     * @var bool $isRejected
+     * @var null|bool $isRejected
      */
     public $isRejected;
 }

@@ -12,20 +12,13 @@ use MagDv\Logistics\Interfaces\MintransGatewayApiInterface;
 
 class LogisticsFactory
 {
-    /**
-     * @var HttpClientInterface
-     */
-    private $client;
+    private \MagDv\Logistics\Interfaces\HttpClientInterface $client;
 
-    /** @var string */
-    private $apikey;
+    private string $apikey;
 
     /** @var string  */
     protected $url;
-    /**
-     * @var \MagDv\Logistics\Interfaces\LogisticsSerializerInterface
-     */
-    private $serializer;
+    private \MagDv\Logistics\Interfaces\LogisticsSerializerInterface $serializer;
 
     public function __construct(
         HttpClientInterface $client,

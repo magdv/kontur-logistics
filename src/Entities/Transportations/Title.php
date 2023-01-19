@@ -10,31 +10,31 @@ class Title
 {
     /**
      * @Serializer\Type("string")
-     * @var string $id
+     * @var null|string $id
      */
     public $id;
 
     /**
      * @Serializer\Type("string")
-     * @var string $type
+     * @var null|string $type
      */
     public $type;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Signer")
-     * @var \MagDv\Logistics\Entities\Transportations\Signer $signer
+     * @var null|\MagDv\Logistics\Entities\Transportations\Signer $signer
      */
     public $signer;
 
     /**
      * @Serializer\Type("bool")
-     * @var bool $isSignatureRejected
+     * @var null|bool $isSignatureRejected
      */
     public $isSignatureRejected;
 
     /**
      * @Serializer\Type("string")
-     * @var string $createdAt
+     * @var null|string $createdAt
      */
     public $createdAt;
 }

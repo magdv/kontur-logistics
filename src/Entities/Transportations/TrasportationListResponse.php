@@ -10,18 +10,18 @@ use MagDv\Logistics\BaseResponse;
 class TrasportationListResponse extends BaseResponse
 {
     /**
-     * @var \MagDv\Logistics\Entities\Transportations\TrasportationResponse[]
+     * @var null|\MagDv\Logistics\Entities\Transportations\TrasportationResponse[]
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\TrasportationResponse>")
      */
     public $items;
 
     /**
-     * @var integer
+     * @var null|integer
      * @Serializer\Type("integer")
      */
     public $totalCount;
     /**
-     * @var bool
+     * @var null|bool
      * @Serializer\Type("bool")
      */
     public $hasMoreResults;
