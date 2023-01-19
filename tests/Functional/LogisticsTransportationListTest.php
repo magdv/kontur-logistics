@@ -16,10 +16,12 @@ use Test\enums\ConfigNames;
 
 class LogisticsTransportationListTest extends BaseTest
 {
+    public string $id;
+
     /** @var \MagDv\Logistics\Interfaces\HttpClientInterface $id */
     private \Test\base\LocalHttpClient $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = new LocalHttpClient();
         // создать накладную
@@ -41,7 +43,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count((array) $response->items) > 0);
+        $this->assertTrue((array) $response->items !== []);
         $this->assertTrue($response->totalCount > 0);
         $this->assertEquals(false, $response->hasMoreResults);
 
@@ -51,7 +53,7 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count((array) $response->items) === 0);
+        $this->assertTrue((array) $response->items === []);
 
         // Take
         $listRequest->From = null;
@@ -79,11 +81,10 @@ class LogisticsTransportationListTest extends BaseTest
         $response = $ligistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
-        $this->assertTrue(count((array) $response->items) === 0);
+        $this->assertTrue((array) $response->items === []);
     }
 
     /**
-     * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     private function createTransportation(): string

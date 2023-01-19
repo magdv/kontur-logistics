@@ -10,31 +10,26 @@ class Circulation
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string $type
      */
-    public $type;
+    public ?string $type = null;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Titles")
-     * @var null|\MagDv\Logistics\Entities\Transportations\Titles $titles
      */
-    public $titles;
+    public ?Titles $titles = null;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Resolutions")
-     * @var null|\MagDv\Logistics\Entities\Transportations\Resolutions $resolutions
      */
-    public $resolutions;
+    public ?Resolutions $resolutions = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $status
      */
-    public $status;
+    public ?string $status = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $deliveredAt
      */
-    public $deliveredAt;
+    public ?string $deliveredAt = null;
 }

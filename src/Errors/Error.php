@@ -10,32 +10,32 @@ class Error
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $code;
+    public ?string $code = null;
+
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $message;
+    public ?string $message = null;
+
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $target;
+    public ?string $target = null;
+
     /**
      * @Serializer\Type("array<string>")
      * @var null|string[]
      */
-    public $details;
+    public ?array $details;
+
     /**
      * @Serializer\Type("MagDv\Logistics\Errors\ErrorContext")
-     * @var \MagDv\Logistics\Errors\ErrorContext|null
      */
-    public $context;
+    public ?ErrorContext $context = null;
+
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $innerError;
+    public ?string $innerError = null;
 }

@@ -13,16 +13,15 @@ class TrasportationListResponse extends BaseResponse
      * @var null|\MagDv\Logistics\Entities\Transportations\TrasportationResponse[]
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\TrasportationResponse>")
      */
-    public $items;
+    public ?array $items = null;
 
     /**
-     * @var null|integer
      * @Serializer\Type("integer")
      */
-    public $totalCount;
+    public ?int $totalCount = null;
+
     /**
-     * @var null|bool
      * @Serializer\Type("bool")
      */
-    public $hasMoreResults;
+    public ?bool $hasMoreResults = null;
 }

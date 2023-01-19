@@ -10,31 +10,27 @@ class MintransStatus
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string $id
      */
-    public $id;
+    public ?string $id = null;
 
     /**
      * @Serializer\Type("string")
      * @var null|int $status
      */
-    public $status;
+    public ?string $status = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $statusDescription
      */
-    public $statusDescription;
+    public ?string $statusDescription = null;
 
     /**
      * @Serializer\Type("bool")
-     * @var null|bool $hasErrors
      */
-    public $hasErrors;
+    public ?bool $hasErrors = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $errorsDescription
      */
-    public $errorsDescription;
+    public ?string $errorsDescription = null;
 }

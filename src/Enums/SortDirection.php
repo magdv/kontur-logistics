@@ -6,6 +6,13 @@ namespace MagDv\Logistics\Enums;
 
 class SortDirection
 {
+    /**
+     * @var string
+     */
     public const ASC = 'Ascending';
+
+    /**
+     * @var string
+     */
     public const DESC = 'Descending';
 }

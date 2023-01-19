@@ -12,5 +12,5 @@ class Titles
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Title>")
      * @var null|\MagDv\Logistics\Entities\Transportations\Title[]
      */
-    public $items;
+    public ?array $items = null;
 }

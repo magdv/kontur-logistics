@@ -10,67 +10,56 @@ class TransportationInfo
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string $id
      */
-    public $id;
+    public ?string $id = null;
 
     /**
-     * @var null|\MagDv\Logistics\Entities\Transportations\Participants $participants
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Participants")
      */
-    public $participants;
+    public ?Participants $participants = null;
 
     /**
      * @Serializer\Type("string")
-     * @var string $status
      */
-    public $status;
+    public ?string $status = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $statusDescription
      */
-    public $statusDescription;
+    public ?string $statusDescription = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $created
      */
-    public $created;
+    public ?string $created = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $lastModified
      */
-    public $lastModified;
+    public ?string $lastModified = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $deliveryAddress
      */
-    public $deliveryAddress;
+    public ?string $deliveryAddress = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $receptionAddress
      */
-    public $receptionAddress;
+    public ?string $receptionAddress = null;
 
     /**
-     * @var null|\MagDv\Logistics\Entities\Transportations\Document $orderDocument
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Document")
      */
-    public $orderDocument;
+    public ?Document $orderDocument = null;
 
     /**
-     * @var null|\MagDv\Logistics\Entities\Transportations\Document $waybillDocument
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Document")
      */
-    public $waybillDocument;
+    public ?Document $waybillDocument = null;
 
     /**
-     * @var null|\MagDv\Logistics\Entities\Transportations\MintransStatus|null $mintransStatus
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\MintransStatus")
      */
-    public $mintransStatus;
+    public ?MintransStatus $mintransStatus = null;
 }

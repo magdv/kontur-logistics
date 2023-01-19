@@ -19,7 +19,7 @@ class LogisticsTransportationTest extends BaseTest
     /** @var \MagDv\Logistics\Interfaces\HttpClientInterface */
     private \Test\base\LocalHttpClient $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = new LocalHttpClient();
         // создать накладную
@@ -50,7 +50,6 @@ class LogisticsTransportationTest extends BaseTest
     }
 
     /**
-     * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     private function createTransportation(): string

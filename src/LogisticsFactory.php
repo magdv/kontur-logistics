@@ -16,8 +16,8 @@ class LogisticsFactory
 
     private string $apikey;
 
-    /** @var string  */
-    protected $url;
+    protected string $url;
+
     private \MagDv\Logistics\Interfaces\LogisticsSerializerInterface $serializer;
 
     public function __construct(

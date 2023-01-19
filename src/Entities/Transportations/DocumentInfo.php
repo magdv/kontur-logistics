@@ -10,19 +10,16 @@ class DocumentInfo
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string $id
      */
-    public $id;
+    public ?string $id = null;
 
     /**
      * @Serializer\Type("string")
-     * @var null|string $type
      */
-    public $type;
+    public ?string $type = null;
 
     /**
      * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Circulations")
-     * @var null|\MagDv\Logistics\Entities\Transportations\Circulations $circulations
      */
-    public $circulations;
+    public ?Circulations $circulations = null;
 }

@@ -17,12 +17,9 @@ class BaseRequest
 
     private string $apikey;
 
-    /** @var string */
-    protected $url;
-    /**
-     * @var \JMS\Serializer\Serializer
-     */
-    protected $serializer;
+    protected string $url;
+
+    protected \JMS\Serializer\Serializer $serializer;
 
     public function __construct(
         HttpClientInterface $client,
@@ -41,8 +38,8 @@ class BaseRequest
         try {
             $req = $request->withAddedHeader('x-kontur-apikey', $this->apikey);
             $response = $this->client->sendRequest($req);
-        } catch (ClientExceptionInterface $e) {
-            throw new LogisticsApiException('Logistics client exception: ' . $e->getMessage(), $e->getCode(), $e);
+        } catch (ClientExceptionInterface $clientException) {
+            throw new LogisticsApiException('Logistics client exception: ' . $clientException->getMessage(), $clientException->getCode(), $clientException);
         }
 
         return $response;

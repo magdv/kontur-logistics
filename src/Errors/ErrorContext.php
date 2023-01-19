@@ -10,17 +10,16 @@ class ErrorContext
 {
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $additionalProp1;
+    public ?string $additionalProp1 = null;
+
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $additionalProp2;
+    public ?string $additionalProp2 = null;
+
     /**
      * @Serializer\Type("string")
-     * @var null|string
      */
-    public $additionalProp3;
+    public ?string $additionalProp3 = null;
 }

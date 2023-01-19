@@ -18,7 +18,7 @@ class LogisticsTransportationPrintFormTest extends BaseTest
 
     private LocalHttpClient $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = new LocalHttpClient();
         // создать накладную
@@ -51,7 +51,6 @@ class LogisticsTransportationPrintFormTest extends BaseTest
     }
 
     /**
-     * @return string
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     private function createTransportation(): string

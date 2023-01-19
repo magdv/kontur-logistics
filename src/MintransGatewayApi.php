@@ -11,7 +11,6 @@ use Nyholm\Psr7\Request;
 class MintransGatewayApi extends BaseRequest implements MintransGatewayApiInterface
 {
     /**
-     * @return \MagDv\Logistics\Entities\Mintrans\Uuid
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     public function uuid(): Uuid

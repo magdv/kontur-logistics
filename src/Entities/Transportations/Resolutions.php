@@ -12,5 +12,5 @@ class Resolutions
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Approval>")
      * @var null|\MagDv\Logistics\Entities\Transportations\Approval[]
      */
-    public $approvals;
+    public ?array $approvals = null;
 }
