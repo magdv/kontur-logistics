@@ -6,14 +6,14 @@ namespace MagDv\Logistics;
 
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
+use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
-use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
 use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
 
 abstract class LogisticsSerializer implements LogisticsSerializerInterface
 {
-    public function getSerializer(): SerializerInterface
+    public function getSerializer(): Serializer
     {
         $serializer = SerializerBuilder::create()->setPropertyNamingStrategy(
             new SerializedNameAnnotationStrategy(

@@ -6,6 +6,9 @@
 - SWAGGER - https://logist-api-staging.kontur.ru/swagger/index.html
 ---------------------------
 
+# Внимание!!! 
+## Библиотека пока активно редактируется и могут быть несовместимые изменения. Учтите этот момент.
+
 ## Пример отправки ТРН
 
 ```php
@@ -74,3 +77,4 @@ class LocalSerializer extends LogisticsSerializer
 - `v1/documents/waybill`
 - `v1/transportations`
 - `v1/transportations/{id}`
+- `v1/transportations/{id}/print-form`

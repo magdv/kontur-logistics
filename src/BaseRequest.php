@@ -24,7 +24,7 @@ class BaseRequest
     /** @var string */
     protected $url;
     /**
-     * @var \JMS\Serializer\SerializerInterface
+     * @var \JMS\Serializer\Serializer
      */
     protected $serializer;
 
