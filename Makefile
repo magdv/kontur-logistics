@@ -11,6 +11,7 @@ Usage: \n\n\
          | shell-php 					Запустить консоль контейнера\n\
          | app-rector-dry 				Запустить Ректора с проверкой\n\
          | app-rector 					Запустить Ректора\n\
+         | app-analyze 					Проверить через Psalm\n\
          \n\
     "
 

@@ -17,23 +17,9 @@
 declare(strict_types=1);
 
 use GuzzleHttp\Client;
-use MagDv\Logistics\LogisticsSerializer;
+use MagDv\Logistics\ClientConfig;
 
-class LocalHttpClient implements HttpClientInterface
-{
-
-    public function getClient(): ClientInterface
-    {
-        // PSR-18 совместимый клиент
-        return new Client(
-            [
-                'debug' => true,
-            ]
-        );
-    }
-}
-
-class LocalSerializer extends LogisticsSerializer
+class LocalConfig extends ClientConfig
 {
     public function getCachePath(): ?string
     {
@@ -44,18 +30,30 @@ class LocalSerializer extends LogisticsSerializer
     {
         return false; // тут надо указать, включать ли дебаг в дев режиме можете включить, чтобы видеть ошибки
     }
-}
-       
-        $serializer = new LocalSerializer();
-        $client = new LocalHttpClient();
 
+    public function getUrl(): string
+    {
+        return 'URL к апи';
+    }
+
+    public function getApiKey(): string
+    {
+        return 'apiKey';
+    }
+
+    public function getClient(): HttpClientInterface
+    {
+         // PSR-18 совместимый клиент
+        return new Client();
+    }
+}
         $request = new SendWaybillRequest();
         $request->waybill = 'xml content';
         $request->waybillFileName = 'name.xml';
         $request->waybillSignFileName = 'sign_name.sig';
         $request->waybillSign = 'sig_content';
 
-        $logistics = new LogisticsDocuments($client, 'apikey', $srializer, 'URL'));
+        $logistics = new LogisticsDocuments(new LocalConfig());
         $response = $logistics->sendWaybill($request);
 
         // Текущий статус ответа

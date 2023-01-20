@@ -8,20 +8,17 @@ use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
-use Test\base\LocalHttpClient;
-use Test\base\LocalSerializer;
-use Test\enums\ConfigNames;
+use Test\base\LocalConfig;
 
 class LogisticsTransportationTest extends BaseTest
 {
     private string $id;
 
-    /** @var \MagDv\Logistics\Interfaces\HttpClientInterface */
-    private \Test\base\LocalHttpClient $client;
+    private LocalConfig $client;
 
     protected function setUp(): void
     {
-        $this->client = new LocalHttpClient();
+        $this->client = new LocalConfig();
         // создать накладную
         $this->id = $this->createTransportation();
     }
@@ -29,20 +26,17 @@ class LogisticsTransportationTest extends BaseTest
     public function testTransportationByIdRequest(): void
     {
         // получить накладную
-        $ligistics = new LogisticsTransportationsApi(
-            $this->client,
-            getenv(ConfigNames::APIKEY),
-            new LocalSerializer(),
-            getenv(ConfigNames::URL)
+        $logistics = new LogisticsTransportationsApi(
+            $this->client
         );
-        $response = $ligistics->transportation($this->id);
+        $response = $logistics->transportation($this->id);
 
         // делаю просто проверку, что не пустое и что оно десериализовалось.
         $this->assertNotEmpty($response);
         $this->assertNotEmpty($response->documentInfo->id);
 
         // проверим, что есть ошибка в ответе
-        $response = $ligistics->transportation('$this->id');
+        $response = $logistics->transportation('$this->id');
 
         $this->assertNotEmpty($response);
         $this->assertEquals(404, $response->statusCode);
@@ -60,8 +54,8 @@ class LogisticsTransportationTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $ligistics = new LogisticsDocumentsApi($this->client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
+        $logistics = new LogisticsDocumentsApi($this->client);
 
-        return $ligistics->sendWaybill($request)->transportationId;
+        return $logistics->sendWaybill($request)->transportationId;
     }
 }

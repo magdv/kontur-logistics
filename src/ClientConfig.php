@@ -9,9 +9,9 @@ use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
-use MagDv\Logistics\Interfaces\LogisticsSerializerInterface;
+use MagDv\Logistics\Interfaces\ClientConfigInterface;
 
-abstract class LogisticsSerializer implements LogisticsSerializerInterface
+abstract class ClientConfig implements ClientConfigInterface
 {
     public function getSerializer(): Serializer
     {
