@@ -9,6 +9,9 @@ Usage: \n\n\
 		 | test                         Запуск тестов\n\
          | app-lint                     Исправить котостайл\n\
          | shell-php 					Запустить консоль контейнера\n\
+         | app-rector-dry 				Запустить Ректора с проверкой\n\
+         | app-rector 					Запустить Ректора\n\
+         | app-analyze 					Проверить через Psalm\n\
          \n\
     "
 
@@ -54,7 +57,13 @@ app-lint:
 	docker-compose run --rm app-php-cli composer cs-fix
 
 app-analyze:
-	docker-compose run --rm app-php-cli composer psalm
+	docker-compose run --rm app-php-cli php vendor/bin/psalm
+
+app-rector:
+	docker-compose run --rm app-php-cli vendor/bin/rector process
+
+app-rector-dry:
+	docker-compose run --rm app-php-cli vendor/bin/rector process  --dry-run
 
 shell-php:
 	docker-compose exec app-php-cli bash

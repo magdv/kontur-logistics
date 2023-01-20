@@ -6,16 +6,15 @@ namespace MagDv\Logistics\Entities\Transportations;
 
 class TransportationListRequest
 {
-    /** @var \DateTimeImmutable|null $From */
-    public $From;
-    /** @var \DateTimeImmutable|null $To */
-    public $To;
-    /** @var string|null $Status */
-    public $Status;
-    /** @var int|null $Skip */
-    public $Skip;
-    /** @var int|null $Take */
-    public $Take;
-    /** @var string|null */
-    public $SortDirection;
+    public ?\DateTimeImmutable $From = null;
+
+    public ?\DateTimeImmutable $To = null;
+
+    public ?string $Status = null;
+
+    public ?int $Skip = null;
+
+    public ?int $Take = null;
+
+    public ?string $SortDirection = null;
 }

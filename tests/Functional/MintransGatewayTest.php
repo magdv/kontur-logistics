@@ -7,18 +7,14 @@ namespace Test\Functional;
 use MagDv\Logistics\MintransGatewayApi;
 use Ramsey\Uuid\Uuid;
 use Test\base\BaseTest;
-use Test\base\LocalHttpClient;
-use Test\base\LocalSerializer;
-use Test\enums\ConfigNames;
+use Test\base\LocalConfig;
 
 class MintransGatewayTest extends BaseTest
 {
     public function testUuid(): void
     {
 
-        $client = new LocalHttpClient();
-
-        $mintrans = new MintransGatewayApi($client, getenv(ConfigNames::APIKEY), new LocalSerializer(), getenv(ConfigNames::URL));
+        $mintrans = new MintransGatewayApi(new LocalConfig());
         $response = $mintrans->uuid();
 
         $this->assertNotEmpty($response->result);

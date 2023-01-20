@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
+use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
-use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
+use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 use MagDv\Logistics\Interfaces\LogisticsTransportationsApiInterface;
 use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Uri;
@@ -29,11 +30,11 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse
     {
         $queryData = [];
-        if ($requestList->From) {
+        if ($requestList->From !== null) {
             $queryData['From'] = $requestList->From->format('Y-m-d\TH:i:sP');
         }
 
-        if ($requestList->To) {
+        if ($requestList->To !== null) {
             $queryData['To'] = $requestList->To->format('Y-m-d\TH:i:sP');
         }
 
@@ -64,6 +65,35 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
         /** @var TrasportationListResponse $dto */
         $dto = $this->serializer->deserialize($response->getBody()->getContents(), TrasportationListResponse::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
+    public function transportationsPrintForm(string $transportationId): PrintFormResponse
+    {
+        $request = new Request('GET', $this->url . 'v1/transportations/' . $transportationId . '/print-form');
+
+        $response = $this->send($request);
+
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            $disposition = $response->getHeader('Content-Disposition')[0] ?? [];
+            $fileName = 'ТРН.pdf';
+            if ($disposition && preg_match('#filename=\"(.+)\";#i', $disposition, $match)) {
+                $fileName = $match[1];
+            }
+
+            $data = [
+                'data' => $response->getBody()->getContents(),
+                'type' => $response->getHeader('Content-Type')[0] ?? 'application/pdf',
+                'fileName' => $fileName,
+            ];
+
+            $dto = $this->serializer->fromArray($data, PrintFormResponse::class);
+        } else {
+            $dto = $this->serializer->deserialize($response->getBody()->getContents(), PrintFormResponse::class, 'json');
+        }
+
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;

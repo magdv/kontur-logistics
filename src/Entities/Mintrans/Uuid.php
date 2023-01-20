@@ -11,7 +11,6 @@ class Uuid extends BaseResponse
 {
     /**
      * @Serializer\Type("string")
-     * @var string
      */
-    public $result;
+    public ?string $result = null;
 }

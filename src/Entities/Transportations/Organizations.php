@@ -10,7 +10,7 @@ class Organizations
 {
     /**
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Organization>")
-     * @var \MagDv\Logistics\Entities\Transportations\Organization[] $items
+     * @var null|\MagDv\Logistics\Entities\Transportations\Organization[] $items
      */
-    public $items;
+    public ?array $items = null;
 }

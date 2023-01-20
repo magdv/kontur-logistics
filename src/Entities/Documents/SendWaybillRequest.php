@@ -6,12 +6,11 @@ namespace MagDv\Logistics\Entities\Documents;
 
 class SendWaybillRequest
 {
-    /** @var null|string */
-    public $waybillFileName;
-    /** @var null|string */
-    public $waybill;
-    /** @var null|string */
-    public $waybillSign;
-    /** @var null|string */
-    public $waybillSignFileName;
+    public ?string $waybillFileName = null;
+
+    public ?string $waybill = null;
+
+    public ?string $waybillSign = null;
+
+    public ?string $waybillSignFileName = null;
 }

@@ -16,8 +16,6 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
     /**
      * Отправка титула с подписью
      *
-     * @param \MagDv\Logistics\Entities\Documents\SendWaybillRequest $request
-     * @return SendWaybillResponse
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     public function sendWaybill(SendWaybillRequest $request): SendWaybillResponse

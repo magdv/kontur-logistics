@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Entities\Transportations;
 
+use MagDv\Logistics\BaseResponse;
 use JMS\Serializer\Annotation as Serializer;
 
-class DocumentInfo
+final class PrintFormResponse extends BaseResponse
 {
     /**
      * @Serializer\Type("string")
      */
-    public ?string $id = null;
+    public ?string $data = null;
 
     /**
      * @Serializer\Type("string")
@@ -19,7 +20,7 @@ class DocumentInfo
     public ?string $type = null;
 
     /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Circulations")
+     * @Serializer\Type("string")
      */
-    public ?Circulations $circulations = null;
+    public ?string $fileName = null;
 }

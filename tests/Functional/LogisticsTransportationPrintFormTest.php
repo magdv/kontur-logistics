@@ -10,30 +10,32 @@ use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
 use Test\base\LocalConfig;
 
-class LogisticsTransportationTest extends BaseTest
+class LogisticsTransportationPrintFormTest extends BaseTest
 {
-    private string $id;
+    private ?string $id = null;
 
-    private LocalConfig $client;
+    private LocalConfig $config;
 
     protected function setUp(): void
     {
-        $this->client = new LocalConfig();
+        $this->config = new LocalConfig();
         // создать накладную
         $this->id = $this->createTransportation();
     }
 
-    public function testTransportationByIdRequest(): void
+    public function testTransportationPrintForm(): void
     {
         // получить накладную
         $logistics = new LogisticsTransportationsApi(
-            $this->client
+            $this->config
         );
-        $response = $logistics->transportation($this->id);
+        $response = $logistics->transportationsPrintForm($this->id);
 
-        // делаю просто проверку, что не пустое и что оно десериализовалось.
+//         делаю просто проверку, что не пустое и что оно десериализовалось.
         $this->assertNotEmpty($response);
-        $this->assertNotEmpty($response->documentInfo->id);
+        $this->assertNotEmpty($response->data);
+        $this->assertNotEmpty($response->fileName);
+        $this->assertNotEmpty($response->type);
 
         // проверим, что есть ошибка в ответе
         $response = $logistics->transportation('$this->id');
@@ -54,7 +56,7 @@ class LogisticsTransportationTest extends BaseTest
         $request->waybill = $xml;
         $request->waybillFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
 
-        $logistics = new LogisticsDocumentsApi($this->client);
+        $logistics = new LogisticsDocumentsApi($this->config);
 
         return $logistics->sendWaybill($request)->transportationId;
     }

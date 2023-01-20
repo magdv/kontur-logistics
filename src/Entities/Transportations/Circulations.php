@@ -10,7 +10,7 @@ class Circulations
 {
     /**
      * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Circulation>")
-     * @var \MagDv\Logistics\Entities\Transportations\Circulation[]
+     * @var null|\MagDv\Logistics\Entities\Transportations\Circulation[]
      */
-    public $items;
+    public ?array $items;
 }

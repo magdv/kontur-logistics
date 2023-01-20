@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace MagDv\Logistics;
 
 use JMS\Serializer\Annotation as Serializer;
+use MagDv\Logistics\Errors\Error;
 
 class BaseResponse
 {
     /**
      * @Serializer\Type("int")
-     * @var int
      */
-    public $statusCode;
+    public ?int $statusCode = null;
+
     /**
      * @Serializer\Type("string")
-     * @var string
      */
-    public $traceId;
+    public ?string $traceId = null;
+
     /**
      * @Serializer\Type("MagDv\Logistics\Errors\Error")
-     * @var \MagDv\Logistics\Errors\Error
      */
-    public $error;
+    public ?Error $error = null;
 
     public function isOk(): bool
     {
