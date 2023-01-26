@@ -17,7 +17,7 @@
         "nyholm/psr7": "^1.5",
         "ext-simplexml": "*",
         "php-http/multipart-stream-builder": "^1.2",
-        "jms/serializer": "^3.18"
+        "jms/serializer": "^3.21"
     },
     "autoload": {
         "psr-4": {
