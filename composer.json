@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "ext-curl": "*",
         "ext-json": "*",
         "psr/http-client": "^1.0",
@@ -41,5 +41,10 @@
         "psalm": "psalm",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
     }
 }
