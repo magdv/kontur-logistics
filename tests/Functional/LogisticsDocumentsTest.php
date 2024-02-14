@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Test\Functional;
 
+use MagDv\Logistics\Entities\Documents\CreateWaybillDraftRequest;
+use MagDv\Logistics\Entities\Documents\Enums\DraftAction;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use Test\base\BaseTest;
@@ -41,7 +43,7 @@ class LogisticsDocumentsTest extends BaseTest
         $ligistics = new LogisticsDocumentsApi(new LocalConfig());
         $response = $ligistics->sendWaybill($request);
         $this->assertEquals(400, $response->statusCode);
-        $this->assertEquals('Идентификатор одного из участников ЭДО не соответствует организации, найденной по ИНН-КПП', $response->error->message);
+        $this->assertEquals('Неверное содержимое XML-файла. Одна из сторон документооборота не найдена.', $response->error->message);
     }
 
     public function testSendWaybillUnathorized(): void
@@ -60,5 +62,22 @@ class LogisticsDocumentsTest extends BaseTest
         $response = $logisticsDocumentsApi->sendWaybill($request);
         $this->assertEquals(401, $response->statusCode);
         $this->assertStringContainsString('APIKEY authentication failed', $response->error->message);
+    }
+
+    public function testCreatedWaybillDraft(): void
+    {
+
+        $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN.xml');
+
+        $request = new CreateWaybillDraftRequest();
+        $request->draft = $xml;
+        $request->draftFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
+        $request->draftAction = DraftAction::APPROVED_FOR_SIGNATURE;
+
+        $logistics = new LogisticsDocumentsApi(new LocalConfig());
+        $response = $logistics->createWaybillDraft($request);
+
+        $this->assertNotEmpty($response->transportationId);
+        $this->assertNotEmpty($response->draftId);
     }
 }

@@ -11,11 +11,8 @@ use Test\enums\ConfigNames;
 
 class LocalConfig extends ClientConfig
 {
-    private ?string $apiKey;
-
-    public function __construct(?string $apiKey = null)
+    public function __construct(private ?string $apiKey = null)
     {
-        $this->apiKey = $apiKey;
     }
 
     public function getCachePath(): ?string

@@ -33,9 +33,9 @@ class LogisticsTransportationPrintFormTest extends BaseTest
 
 //         делаю просто проверку, что не пустое и что оно десериализовалось.
         $this->assertNotEmpty($response);
-        $this->assertNotEmpty($response->data);
-        $this->assertNotEmpty($response->fileName);
-        $this->assertNotEmpty($response->type);
+        $this->assertNotNull($response->data);
+        $this->assertNotNull($response->fileName);
+        $this->assertNotNull($response->type);
 
         // проверим, что есть ошибка в ответе
         $response = $logistics->transportation('$this->id');

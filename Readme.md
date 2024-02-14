@@ -3,7 +3,7 @@
 ---------------------------
 
 - URL - https://kontur.ru/diadoc/logistika
-- SWAGGER - https://logist-api-staging.kontur.ru/swagger/index.html
+- API - https://developer.kontur.ru/doc/logistics.api
 ---------------------------
 
 # Внимание!!! 
@@ -73,6 +73,7 @@ class LocalConfig extends ClientConfig
 
 - `v1/mintransgateway/uuid`
 - `v1/documents/waybill`
+- `v1/documents/waybill/draft`
 - `v1/transportations`
 - `v1/transportations/{id}`
 - `v1/transportations/{id}/print-form`

@@ -11,11 +11,8 @@ use MagDv\Logistics\Interfaces\MintransGatewayApiInterface;
 
 class LogisticsFactory
 {
-    private ClientConfigInterface $config;
-
-    public function __construct(ClientConfigInterface $config)
+    public function __construct(private ClientConfigInterface $config)
     {
-        $this->config = $config;
     }
 
     public function getDocuments(): LogisticsDocumentsApiInterface
