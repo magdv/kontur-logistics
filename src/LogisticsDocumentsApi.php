@@ -6,6 +6,8 @@ namespace MagDv\Logistics;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use MagDv\Logistics\Entities\Documents\CreateWaybillDraftRequest;
+use MagDv\Logistics\Entities\Documents\CreateWaybillDraftResponse;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\Entities\Documents\SendWaybillResponse;
 use MagDv\Logistics\Interfaces\LogisticsDocumentsApiInterface;
@@ -68,6 +70,49 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
 
         /** @var SendWaybillResponse $body */
         $body = $this->serializer->deserialize($response->getBody()->getContents(), SendWaybillResponse::class, 'json');
+        $body->statusCode = $response->getStatusCode();
+
+        return $body;
+    }
+
+    /**
+     * Отправка черновика титула ЭТрН
+     */
+    public function createWaybillDraft(CreateWaybillDraftRequest $request): CreateWaybillDraftResponse
+    {
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
+        $builder = new MultipartStreamBuilder($streamFactory);
+
+        if ($request->draft !== '' && $request->draft !== '0') {
+            $builder
+                ->addResource(
+                    'draft',
+                    $request->draft,
+                    [
+                        'filename' => $request->draftFileName,
+                        'headers' => [
+                            'Content-Type' => 'text/xml'
+                        ]
+                    ]
+                );
+        }
+
+        $multipartStream = $builder->build();
+        $boundary = $builder->getBoundary();
+
+        $req = new Request(
+            'POST',
+            $this->url . 'v1/documents/waybill/draft',
+            [
+                'Content-Type' => 'multipart/form-data;boundary="' . $boundary . '"',
+            ],
+            $multipartStream
+        );
+
+        $response = $this->send($req);
+
+        /** @var CreateWaybillDraftResponse $body */
+        $body = $this->serializer->deserialize($response->getBody()->getContents(), CreateWaybillDraftResponse::class, 'json');
         $body->statusCode = $response->getStatusCode();
 
         return $body;

@@ -30,11 +30,11 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse
     {
         $queryData = [];
-        if ($requestList->From !== null) {
+        if ($requestList->From instanceof \DateTimeImmutable) {
             $queryData['From'] = $requestList->From->format('Y-m-d\TH:i:sP');
         }
 
-        if ($requestList->To !== null) {
+        if ($requestList->To instanceof \DateTimeImmutable) {
             $queryData['To'] = $requestList->To->format('Y-m-d\TH:i:sP');
         }
 
@@ -79,8 +79,8 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             $disposition = $response->getHeader('Content-Disposition')[0] ?? [];
             $fileName = 'ТРН.pdf';
-            if ($disposition && preg_match('#filename=\"(.+)\";#i', $disposition, $match)) {
-                $fileName = $match[1];
+            if ($disposition && preg_match('#filename\*=UTF-8\'\'(.+)#i', $disposition, $match)) {
+                $fileName = urldecode($match[1]);
             }
 
             $data = [
