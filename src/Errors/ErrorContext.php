@@ -8,18 +8,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 class ErrorContext
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $additionalProp1 = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $additionalProp2 = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $additionalProp3 = null;
 }

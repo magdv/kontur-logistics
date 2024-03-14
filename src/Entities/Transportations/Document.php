@@ -8,13 +8,8 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Document
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $number = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $date = null;
 }

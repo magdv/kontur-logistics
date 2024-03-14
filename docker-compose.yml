@@ -1,13 +1,10 @@
 version: "3.7"
 services:
-
-    app-php-cli:
-        env_file:
-            - .env
-        build:
-            context: docker
-            dockerfile: development/php-cli/Dockerfile
-        tty: true
-        stdin_open: true
-        volumes:
-            - .:/app
+  app-php-cli:
+    build:
+      context: docker
+      dockerfile: development/php-cli/Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app

@@ -8,9 +8,6 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Organizations
 {
-    /**
-     * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Organization>")
-     * @var null|\MagDv\Logistics\Entities\Transportations\Organization[] $items
-     */
+    #[Serializer\Type('array<' . Organizations::class . '>')]
     public ?array $items = null;
 }

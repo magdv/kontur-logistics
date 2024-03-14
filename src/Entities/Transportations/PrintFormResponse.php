@@ -9,18 +9,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 final class PrintFormResponse extends BaseResponse
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $data = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $type = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $fileName = null;
 }

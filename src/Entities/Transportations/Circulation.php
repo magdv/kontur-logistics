@@ -8,28 +8,14 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Circulation
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $type = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Titles")
-     */
+    #[Serializer\Type(Titles::class)]
     public ?Titles $titles = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Resolutions")
-     */
+    #[Serializer\Type(Resolutions::class)]
     public ?Resolutions $resolutions = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $status = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $deliveredAt = null;
 }
