@@ -8,18 +8,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 class DocumentInfo
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $id = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $type = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Circulations")
-     */
+    #[Serializer\Type(Circulations::class)]
     public ?Circulations $circulations = null;
 }

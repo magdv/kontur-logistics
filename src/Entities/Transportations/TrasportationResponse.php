@@ -9,13 +9,8 @@ use MagDv\Logistics\BaseResponse;
 
 class TrasportationResponse extends BaseResponse
 {
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\TransportationInfo")
-     */
+    #[Serializer\Type(TransportationInfo::class)]
     public ?TransportationInfo $transportationInfo = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\DocumentInfo")
-     */
+    #[Serializer\Type(DocumentInfo::class)]
     public ?DocumentInfo $documentInfo = null;
 }

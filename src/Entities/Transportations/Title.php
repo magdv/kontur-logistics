@@ -8,28 +8,14 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Title
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $id = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $type = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Signer")
-     */
+    #[Serializer\Type(Signer::class)]
     public ?Signer $signer = null;
-
-    /**
-     * @Serializer\Type("bool")
-     */
+    #[Serializer\Type('bool')]
     public ?bool $isSignatureRejected = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $createdAt = null;
 }

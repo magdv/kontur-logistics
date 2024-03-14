@@ -8,29 +8,14 @@ use JMS\Serializer\Annotation as Serializer;
 
 class MintransStatus
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $id = null;
-
-    /**
-     * @Serializer\Type("string")
-     * @var null|int $status
-     */
+    #[Serializer\Type('string')]
     public ?string $status = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $statusDescription = null;
-
-    /**
-     * @Serializer\Type("bool")
-     */
+    #[Serializer\Type('bool')]
     public ?bool $hasErrors = null;
-
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $errorsDescription = null;
 }

@@ -8,13 +8,8 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Participants
 {
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Organizations")
-     */
+    #[Serializer\Type(Organizations::class)]
     public ?Organizations $organizations = null;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Drivers")
-     */
+    #[Serializer\Type(Drivers::class)]
     public ?Drivers $drivers = null;
 }

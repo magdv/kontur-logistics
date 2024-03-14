@@ -8,14 +8,8 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Drivers
 {
-    /**
-     * @Serializer\Type("array<MagDv\Logistics\Entities\Transportations\Driver>")
-     * @var null|\MagDv\Logistics\Entities\Transportations\Driver[]
-     */
+    #[Serializer\Type('array<' . Driver::class . '>')]
     public ?array $previousDrivers;
-
-    /**
-     * @Serializer\Type("MagDv\Logistics\Entities\Transportations\Driver")
-     */
+    #[Serializer\Type(Driver::class)]
     public ?Driver $currentDriver = null;
 }

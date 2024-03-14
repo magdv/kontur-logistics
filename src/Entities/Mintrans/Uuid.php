@@ -9,8 +9,6 @@ use MagDv\Logistics\BaseResponse;
 
 class Uuid extends BaseResponse
 {
-    /**
-     * @Serializer\Type("string")
-     */
+    #[Serializer\Type('string')]
     public ?string $result = null;
 }

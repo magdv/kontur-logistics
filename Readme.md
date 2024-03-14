@@ -77,3 +77,4 @@ class LocalConfig extends ClientConfig
 - `v1/transportations`
 - `v1/transportations/{id}`
 - `v1/transportations/{id}/print-form`
+- `v1/organizations/requisites`
