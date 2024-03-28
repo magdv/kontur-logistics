@@ -102,7 +102,7 @@ class LogisticsDocumentsApi extends BaseRequest implements LogisticsDocumentsApi
 
         $req = new Request(
             'POST',
-            $this->url . 'v1/documents/waybill/draft',
+            $this->url . 'v1/documents/waybill/draft?' . http_build_query(['transportationId' => $request->transportationId, 'draftAction' => $request->draftAction]),
             [
                 'Content-Type' => 'multipart/form-data;boundary="' . $boundary . '"',
             ],
