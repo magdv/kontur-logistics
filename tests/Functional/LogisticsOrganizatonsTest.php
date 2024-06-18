@@ -37,9 +37,20 @@ class LogisticsOrganizatonsTest extends BaseTest
         $this->assertEquals($inn, $kdv->inn);
         $this->assertEquals('74ccc554-36ad-4322-8790-9018665f981a', $kdv->diadocBoxId);
         $this->assertEquals('ООО "КДВ Групп"', $kdv->fullName);
-        $this->assertEquals('ООО "КДВ Групп"', $kdv->shortName);
+        $this->assertEquals(null, $kdv->shortName);
         $this->assertEquals(false, $kdv->isRoaming);
         $this->assertEquals('2BM-7017094419-2012052808201742382630000000000', $kdv->fnsParticipantId);
+        $this->assertEquals('enabled', $kdv->autoRelationMode);
+        $this->assertEquals(true, $kdv->isLogistics);
+        $this->assertEquals('Production', $kdv->eplsSettings->workMode);
+        $this->assertEquals('Production', $kdv->transportationsSettings->workMode);
+        $this->assertEquals(
+            [
+                'consignee',
+                'consignor',
+            ],
+            $kdv->roles
+        );
 
         $kpp = '701701001';
         // проверим, что есть ошибка в ответе

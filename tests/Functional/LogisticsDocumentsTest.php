@@ -9,6 +9,7 @@ use MagDv\Logistics\Entities\Documents\Enums\DraftAction;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use Test\base\BaseTest;
+use Test\base\KdvLocalConfig;
 use Test\base\LocalConfig;
 
 class LogisticsDocumentsTest extends BaseTest
@@ -43,7 +44,7 @@ class LogisticsDocumentsTest extends BaseTest
         $ligistics = new LogisticsDocumentsApi(new LocalConfig());
         $response = $ligistics->sendWaybill($request);
         $this->assertEquals(400, $response->statusCode);
-        $this->assertEquals('Неверное содержимое XML-файла. Одна из сторон документооборота не найдена.', $response->error->message);
+        $this->assertEquals('Некорректное содержание титула. Токен не найден: СвДовер/@ИдентДовер', $response->error->message);
     }
 
     public function testSendWaybillUnathorized(): void
@@ -67,16 +68,18 @@ class LogisticsDocumentsTest extends BaseTest
     public function testCreatedWaybillDraft(): void
     {
 
-        $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN.xml');
+        $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN_DRAFT_KDV.xml');
 
         $request = new CreateWaybillDraftRequest();
         $request->draft = $xml;
-        $request->draftFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017477919-701701001-202009220246067913748_0_20221117_f31045c7-a0be-409e-bb89-a0d436053961.xml';
+        $request->draftFileName = 'ON_TRNACLGROT_2BM-7715290822-332801001-201505310156089197087_2BM-7017094419-2012052808201742382630000000000_2BM-7017094419-2012052808201742382630000000000_1_20240617_03953037-e0ac-4658-8b0e-83def44756f4.xml';
         $request->draftAction = DraftAction::APPROVED_FOR_SIGNATURE;
 
-        $logistics = new LogisticsDocumentsApi(new LocalConfig());
+        $logistics = new LogisticsDocumentsApi(new KdvLocalConfig());
         $response = $logistics->createWaybillDraft($request);
 
+        $this->assertNull($response->error?->message);
+        $this->assertTrue($response->isOk());
         $this->assertNotEmpty($response->transportationId);
         $this->assertNotEmpty($response->draftId);
     }
