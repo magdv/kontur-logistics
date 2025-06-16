@@ -11,5 +11,6 @@ class CreateWaybillDraftRequest
     public ?string $draftFileName = null;
 
     public ?string $draftAction = null;
+
     public ?string $transportationId = null;
 }

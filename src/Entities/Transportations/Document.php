@@ -10,6 +10,7 @@ class Document
 {
     #[Serializer\Type('string')]
     public ?string $number = null;
+
     #[Serializer\Type('string')]
     public ?string $date = null;
 }

@@ -10,6 +10,7 @@ class Drivers
 {
     #[Serializer\Type('array<' . Driver::class . '>')]
     public ?array $previousDrivers;
+
     #[Serializer\Type(Driver::class)]
     public ?Driver $currentDriver = null;
 }

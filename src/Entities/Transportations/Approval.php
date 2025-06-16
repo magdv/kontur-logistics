@@ -10,12 +10,16 @@ class Approval
 {
     #[Serializer\Type('string')]
     public ?string $type = null;
+
     #[Serializer\Type('string')]
     public ?string $dateTime = null;
+
     #[Serializer\Type(Signer::class)]
     public ?Signer $signer = null;
+
     #[Serializer\Type('string')]
     public ?string $comment = null;
+
     #[Serializer\Type('bool')]
     public ?bool $isRejected = null;
 }

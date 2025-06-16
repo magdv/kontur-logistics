@@ -10,6 +10,7 @@ class Participants
 {
     #[Serializer\Type(Organizations::class)]
     public ?Organizations $organizations = null;
+
     #[Serializer\Type(Drivers::class)]
     public ?Drivers $drivers = null;
 }

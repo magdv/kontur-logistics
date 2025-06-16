@@ -10,12 +10,16 @@ class Driver
 {
     #[Serializer\Type('string')]
     public ?string $lastName = null;
+
     #[Serializer\Type('string')]
     public ?string $firstName = null;
+
     #[Serializer\Type('string')]
     public ?string $middleName = null;
+
     #[Serializer\Type('string')]
     public ?string $licenseId = null;
+
     #[Serializer\Type('string')]
     public ?string $phone = null;
 }
