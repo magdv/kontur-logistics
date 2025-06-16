@@ -10,16 +10,22 @@ class Signer
 {
     #[Serializer\Type('string')]
     public ?string $lastName = null;
+
     #[Serializer\Type('string')]
     public ?string $firstName = null;
+
     #[Serializer\Type('string')]
     public ?string $middleName = null;
+
     #[Serializer\Type('string')]
     public ?string $position = null;
+
     #[Serializer\Type('bool')]
     public ?bool $isDriver = null;
+
     #[Serializer\Type('string')]
     public ?string $phone = null;
+
     #[Serializer\Type('string')]
     public ?string $driverLicense = null;
 }

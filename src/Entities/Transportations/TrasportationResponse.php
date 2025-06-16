@@ -11,6 +11,7 @@ class TrasportationResponse extends BaseResponse
 {
     #[Serializer\Type(TransportationInfo::class)]
     public ?TransportationInfo $transportationInfo = null;
+
     #[Serializer\Type(DocumentInfo::class)]
     public ?DocumentInfo $documentInfo = null;
 }

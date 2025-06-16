@@ -10,8 +10,10 @@ class DocumentInfo
 {
     #[Serializer\Type('string')]
     public ?string $id = null;
+
     #[Serializer\Type('string')]
     public ?string $type = null;
+
     #[Serializer\Type(Circulations::class)]
     public ?Circulations $circulations = null;
 }

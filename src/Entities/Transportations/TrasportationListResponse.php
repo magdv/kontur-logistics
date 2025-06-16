@@ -11,8 +11,10 @@ class TrasportationListResponse extends BaseResponse
 {
     #[Serializer\Type('array<' . TrasportationResponse::class . '>')]
     public ?array $items = null;
+
     #[Serializer\Type('integer')]
     public ?int $totalCount = null;
+
     #[Serializer\Type('bool')]
     public ?bool $hasMoreResults = null;
 }

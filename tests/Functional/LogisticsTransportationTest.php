@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Test\Functional;
 
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
+use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
+use MagDv\Logistics\Enums\TransportationStatus;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
@@ -19,6 +22,8 @@ class LogisticsTransportationTest extends BaseTest
     protected function setUp(): void
     {
         $this->client = new LocalConfig();
+        // разархивируем, если есть в архиве
+        $this->unArchive();
         // создать накладную
         $this->id = $this->createTransportation();
     }
@@ -43,6 +48,24 @@ class LogisticsTransportationTest extends BaseTest
         $this->assertStringContainsString('$this->id', $response->error->message);
     }
 
+    public function testTransportationArchive(): void
+    {
+        $logistics = new LogisticsTransportationsApi(
+            $this->client
+        );
+
+        // получить накладную
+        $response = $logistics->transportation($this->id);
+
+        $this->assertNotEmpty($response);
+        $this->assertNotEmpty($response->documentInfo->id);
+
+        $archiveResponse = $logistics->archive($this->id);
+        // ожидаемый ответ 204, иначе ошибка
+        $this->assertEquals(204, $archiveResponse->statusCode);
+        $this->unArchive();
+    }
+
     /**
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
@@ -57,5 +80,20 @@ class LogisticsTransportationTest extends BaseTest
         $logistics = new LogisticsDocumentsApi($this->client);
 
         return $logistics->sendWaybill($request)->transportationId;
+    }
+
+    private function unArchive(): void
+    {
+        // разархивируем "взад"
+        $logistics = new LogisticsTransportationsApi(
+            $this->client
+        );
+        $listRequest = new TransportationListRequest();
+        $listRequest->Status = TransportationStatus::ARCHIVED;
+        $response = $logistics->transportationsList($listRequest);
+        /** @var TrasportationResponse $transportation */
+        foreach ((array)$response->items as $transportation) {
+            $logistics->archive($transportation->transportationInfo->id, false);
+        }
     }
 }

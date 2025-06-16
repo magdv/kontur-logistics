@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MagDv\Logistics;
 
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
+use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
@@ -94,6 +95,28 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
             $dto = $this->serializer->deserialize($response->getBody()->getContents(), PrintFormResponse::class, 'json');
         }
 
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
+    public function archive(string $id, bool $archive = true, ?string $diadocBoxId = null): TransportationArchiveResponse
+    {
+        $queryData = [];
+        $queryData['moveToArchive'] = $archive ? 'true' : 'false';
+
+        if ($diadocBoxId !== null) {
+            $queryData['diadocBoxId'] = $diadocBoxId;
+        }
+
+        $request = new Request(
+            'PUT',
+            new Uri($this->url . 'v1/transportations/' . $id . '/archive?' . http_build_query($queryData))
+        );
+        $response = $this->send($request);
+
+        /** @var TransportationArchiveResponse $dto */
+        $dto = $this->serializer->deserialize($response->getBody()->getContents() ?: '{}', TransportationArchiveResponse::class, 'json');
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;

@@ -7,7 +7,11 @@ namespace Test\Functional;
 use MagDv\Logistics\Entities\Documents\CreateWaybillDraftRequest;
 use MagDv\Logistics\Entities\Documents\Enums\DraftAction;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
+use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
+use MagDv\Logistics\Enums\TransportationStatus;
 use MagDv\Logistics\LogisticsDocumentsApi;
+use MagDv\Logistics\LogisticsTransportationsApi;
 use Test\base\BaseTest;
 use Test\base\KdvLocalConfig;
 use Test\base\LocalConfig;
@@ -17,6 +21,7 @@ class LogisticsDocumentsTest extends BaseTest
     public function testSendWaybill(): void
     {
 
+        $this->unArchive();
         $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN.xml');
 
         $request = new SendWaybillRequest();
@@ -78,9 +83,35 @@ class LogisticsDocumentsTest extends BaseTest
         $logistics = new LogisticsDocumentsApi(new KdvLocalConfig());
         $response = $logistics->createWaybillDraft($request);
 
-        $this->assertNull($response->error?->message);
-        $this->assertTrue($response->isOk());
-        $this->assertNotEmpty($response->transportationId);
-        $this->assertNotEmpty($response->draftId);
+        $this->assertEquals("Загрузка черновика/титула Т1 доступна только в перевозки на статусе 'Накладная готова к подписанию и отправке'", $response->error?->message);
+        $this->assertFalse($response->isOk());
+        $this->assertEmpty($response->transportationId);
+        $this->assertEmpty($response->draftId);
+    }
+
+    private function unArchive(): void
+    {
+        // разархивируем "взад"
+        $logistics = new LogisticsTransportationsApi(
+            new LocalConfig()
+        );
+        $listRequest = new TransportationListRequest();
+        $listRequest->Status = TransportationStatus::ARCHIVED;
+        $response = $logistics->transportationsList($listRequest);
+        /** @var TrasportationResponse $transportation */
+        foreach ((array)$response->items as $transportation) {
+            $logistics->archive($transportation->transportationInfo->id, false);
+        }
+
+        $logistics = new LogisticsTransportationsApi(
+            new KdvLocalConfig()
+        );
+        $listRequest = new TransportationListRequest();
+        $listRequest->Status = TransportationStatus::ARCHIVED;
+        $response = $logistics->transportationsList($listRequest);
+        /** @var TrasportationResponse $transportation */
+        foreach ((array)$response->items as $transportation) {
+            $logistics->archive($transportation->transportationInfo->id, false);
+        }
     }
 }

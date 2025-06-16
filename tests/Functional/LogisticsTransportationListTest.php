@@ -7,6 +7,7 @@ namespace Test\Functional;
 use DateTimeImmutable;
 use MagDv\Logistics\Entities\Documents\SendWaybillRequest;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
+use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 use MagDv\Logistics\Enums\TransportationStatus;
 use MagDv\Logistics\LogisticsDocumentsApi;
 use MagDv\Logistics\LogisticsTransportationsApi;
@@ -22,6 +23,7 @@ class LogisticsTransportationListTest extends BaseTest
     protected function setUp(): void
     {
         $this->config = new LocalConfig();
+        $this->unArchiveAll();
         // создать накладную
         $this->id = $this->createTransportation();
     }
@@ -93,5 +95,20 @@ class LogisticsTransportationListTest extends BaseTest
         $logistics = new LogisticsDocumentsApi($this->config);
 
         return $logistics->sendWaybill($request)->transportationId;
+    }
+
+    private function unArchiveAll(): void
+    {
+        $logistics = new LogisticsTransportationsApi(
+            $this->config
+        );
+        // разархивируем, если есть в архиве
+        $listRequest = new TransportationListRequest();
+        $listRequest->Status = TransportationStatus::ARCHIVED;
+        $response = $logistics->transportationsList($listRequest);
+        /** @var TrasportationResponse $transportation */
+        foreach ((array)$response->items as $transportation) {
+            $logistics->archive($transportation->transportationInfo->id, false);
+        }
     }
 }

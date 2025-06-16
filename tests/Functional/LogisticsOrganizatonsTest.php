@@ -10,8 +10,6 @@ use Test\base\LocalConfig;
 
 class LogisticsOrganizatonsTest extends BaseTest
 {
-    private string $id;
-
     private LocalConfig $client;
 
     protected function setUp(): void
@@ -33,7 +31,7 @@ class LogisticsOrganizatonsTest extends BaseTest
         $this->assertNotEmpty($response->items);
         $this->assertCount(1, $response->items);
         $kdv = $response->items[0];
-        $this->assertEquals(997350001, $kdv->kpp);
+        $this->assertEquals(997_350_001, $kdv->kpp);
         $this->assertEquals($inn, $kdv->inn);
         $this->assertEquals('74ccc554-36ad-4322-8790-9018665f981a', $kdv->diadocBoxId);
         $this->assertEquals('ООО "КДВ Групп"', $kdv->fullName);

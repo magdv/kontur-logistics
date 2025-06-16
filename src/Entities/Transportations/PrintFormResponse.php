@@ -11,8 +11,10 @@ final class PrintFormResponse extends BaseResponse
 {
     #[Serializer\Type('string')]
     public ?string $data = null;
+
     #[Serializer\Type('string')]
     public ?string $type = null;
+
     #[Serializer\Type('string')]
     public ?string $fileName = null;
 }
