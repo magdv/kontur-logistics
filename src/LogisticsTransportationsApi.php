@@ -7,6 +7,7 @@ namespace MagDv\Logistics;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationTitleResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 use MagDv\Logistics\Interfaces\LogisticsTransportationsApiInterface;
@@ -117,6 +118,43 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
         /** @var TransportationArchiveResponse $dto */
         $dto = $this->serializer->deserialize($response->getBody()->getContents() ?: '{}', TransportationArchiveResponse::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
+    public function transportationTitle(string $transportationId, string $titleId): TransportationTitleResponse
+    {
+        $response = $this->send(
+            new Request(
+                'GET',
+                $this->url . 'v1/transportations/' . $transportationId . '/titles/' . $titleId
+            )
+        );
+
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            $disposition = $response->getHeader('Content-Disposition')[0] ?? [];
+            $fileName = 'Титул Грузополучателя.zip';
+            if ($disposition && preg_match('#filename\*=UTF-8\'\'(.+)#i', $disposition, $match)) {
+                $fileName = urldecode($match[1]);
+            }
+            /** @var TransportationTitleResponse $dto */
+            $dto = $this->serializer->fromArray(
+                [
+                    'data' => $response->getBody()->getContents(),
+                    'type' => $response->getHeader('Content-Type')[0] ?? 'application/zip',
+                    'fileName' => $fileName,
+                ],
+                TransportationTitleResponse::class
+            );
+        } else {
+            /** @var TransportationTitleResponse $dto */
+            $dto = $this->serializer->deserialize(
+                $response->getBody()->getContents(),
+                TransportationTitleResponse::class,
+                'json'
+            );
+        }
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;
