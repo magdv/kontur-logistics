@@ -12,7 +12,7 @@ class BaseResponse
     #[Serializer\Type('int')]
     public ?int $statusCode = null;
 
-    #[Serializer\Type('string')]
+    #[Serializer\Type('int')]
     public ?int $code = null;
 
     #[Serializer\Type('string')]

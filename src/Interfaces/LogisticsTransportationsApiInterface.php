@@ -7,6 +7,7 @@ namespace MagDv\Logistics\Interfaces;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationTitleResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationResponse;
 
@@ -16,6 +17,7 @@ interface LogisticsTransportationsApiInterface
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     public function transportation(string $id): TrasportationResponse;
+    public function transportationTitle(string $transportationId, string $titleId): TransportationTitleResponse;
 
     public function archive(string $id, bool $archive, ?string $diadocBoxId = null): TransportationArchiveResponse;
 

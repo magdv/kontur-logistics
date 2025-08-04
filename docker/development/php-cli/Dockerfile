@@ -28,6 +28,12 @@ RUN set -xe \
 
 RUN apk add --no-cache unzip
 
+RUN apk add libzip-dev \
+                    zip \
+    && docker-php-ext-configure zip\
+    && docker-php-ext-install zip\
+    && docker-php-ext-enable zip
+
 RUN apk update && apk add curl bash unzip build-base autoconf automake libtool make g++
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
