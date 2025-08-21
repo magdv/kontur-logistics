@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
+use MagDv\Logistics\Entities\Transportations\FullDocFlowResponse;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
@@ -152,6 +153,43 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
             $dto = $this->serializer->deserialize(
                 $response->getBody()->getContents(),
                 TransportationTitleResponse::class,
+                'json'
+            );
+        }
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
+    public function fullDocFlow(string $transportationId): FullDocFlowResponse
+    {
+        $response = $this->send(
+            new Request(
+                'GET',
+                $this->url . 'v1/transportations/' . $transportationId . '/full-docflow'
+            )
+        );
+
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            $disposition = $response->getHeader('Content-Disposition')[0] ?? [];
+            $fileName = 'Титул Грузополучателя.zip';
+            if ($disposition && preg_match('#filename\*=UTF-8\'\'(.+)#i', $disposition, $match)) {
+                $fileName = urldecode($match[1]);
+            }
+            /** @var FullDocFlowResponse $dto */
+            $dto = $this->serializer->fromArray(
+                [
+                    'data' => $response->getBody()->getContents(),
+                    'type' => $response->getHeader('Content-Type')[0] ?? 'application/zip',
+                    'fileName' => $fileName,
+                ],
+                FullDocFlowResponse::class
+            );
+        } else {
+            /** @var FullDocFlowResponse $dto */
+            $dto = $this->serializer->deserialize(
+                $response->getBody()->getContents(),
+                FullDocFlowResponse::class,
                 'json'
             );
         }
