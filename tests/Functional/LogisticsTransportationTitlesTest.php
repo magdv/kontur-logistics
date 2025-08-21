@@ -54,5 +54,4 @@ class LogisticsTransportationTitlesTest extends BaseTest
         self::assertEquals(200, $title->statusCode);
         self::assertNotEmpty($title->data);
     }
-
 }
