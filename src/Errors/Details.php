@@ -6,18 +6,11 @@ namespace MagDv\Logistics\Errors;
 
 use JMS\Serializer\Annotation as Serializer;
 
-class Error
+class Details
 {
-    #[Serializer\Type('string')]
-    public ?string $code = null;
-
     #[Serializer\Type('string')]
     public ?string $message = null;
 
     #[Serializer\Type('string')]
     public ?string $target = null;
-
-    /** @var Details[] */
-    #[Serializer\Type('array<' . Details::class . '>')]
-    public ?array $details = null;
 }
