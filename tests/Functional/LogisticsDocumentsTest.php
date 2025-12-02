@@ -49,7 +49,9 @@ class LogisticsDocumentsTest extends BaseTest
         $ligistics = new LogisticsDocumentsApi(new LocalConfig());
         $response = $ligistics->sendWaybill($request);
         $this->assertEquals(400, $response->statusCode);
-        $this->assertEquals('Некорректное содержание титула. Токен не найден: СвДовер/@ИдентДовер', $response->error->message);
+        $this->assertEquals("Некорректное содержание титула. Токен не найден: 'СвДовер/@ИдентДовер'.", $response->error->message);
+        $this->assertEquals("СвДовер/@ИдентДовер", $response->error->details[0]->target);
+        $this->assertEquals("Токен не найден.", $response->error->details[0]->message);
     }
 
     public function testSendWaybillUnathorized(): void
@@ -72,7 +74,6 @@ class LogisticsDocumentsTest extends BaseTest
 
     public function testCreatedWaybillDraft(): void
     {
-
         $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN_DRAFT_KDV.xml');
 
         $request = new CreateWaybillDraftRequest();
@@ -83,7 +84,7 @@ class LogisticsDocumentsTest extends BaseTest
         $logistics = new LogisticsDocumentsApi(new KdvLocalConfig());
         $response = $logistics->createWaybillDraft($request);
 
-        $this->assertEquals("Загрузка черновика/титула Т1 доступна только в перевозки на статусе 'Накладная готова к подписанию и отправке'", $response->error?->message);
+        $this->assertEquals("Загрузка черновика Т1 доступна только в перевозке на статусах 'Накладная готова к подписанию и отправке'", $response->error?->message);
         $this->assertFalse($response->isOk());
         $this->assertEmpty($response->transportationId);
         $this->assertEmpty($response->draftId);
