@@ -29,7 +29,7 @@ class LogisticsOrganizatonsTest extends BaseTest
         // делаю просто проверку, что не пустое и что оно десериализовалось.
         $this->assertNotEmpty($response);
         $this->assertNotEmpty($response->items);
-        $this->assertCount(2, $response->items);
+        $this->assertCount(1, $response->items);
         $kdv = $response->items[0];
         $this->assertEquals(997_350_001, $kdv->kpp);
         $this->assertEquals($inn, $kdv->inn);

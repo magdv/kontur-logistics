@@ -57,7 +57,7 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
             $queryData['SortDirection'] = $requestList->SortDirection;
         }
 
-        $uri = new Uri($this->url . 'v1/transportations' . ($queryData ? '?' . http_build_query($queryData) : ''));
+        $uri = new Uri($this->url . 'v1/transportations' . ($queryData !== [] ? '?' . http_build_query($queryData) : ''));
 
         $request = new Request(
             'GET',
@@ -139,6 +139,7 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
             if ($disposition && preg_match('#filename\*=UTF-8\'\'(.+)#i', $disposition, $match)) {
                 $fileName = urldecode($match[1]);
             }
+
             /** @var TransportationTitleResponse $dto */
             $dto = $this->serializer->fromArray(
                 [
@@ -156,6 +157,7 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
                 'json'
             );
         }
+
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;
@@ -176,6 +178,7 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
             if ($disposition && preg_match('#filename\*=UTF-8\'\'(.+)#i', $disposition, $match)) {
                 $fileName = urldecode($match[1]);
             }
+
             /** @var FullDocFlowResponse $dto */
             $dto = $this->serializer->fromArray(
                 [
@@ -193,6 +196,7 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
                 'json'
             );
         }
+
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;

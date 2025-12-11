@@ -18,7 +18,9 @@ interface LogisticsTransportationsApiInterface
      * @throws \MagDv\Logistics\Exception\LogisticsApiException
      */
     public function transportation(string $id): TrasportationResponse;
+
     public function transportationTitle(string $transportationId, string $titleId): TransportationTitleResponse;
+
     public function fullDocFlow(string $transportationId): FullDocFlowResponse;
 
     public function archive(string $id, bool $archive, ?string $diadocBoxId = null): TransportationArchiveResponse;

@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 class Drivers
 {
     #[Serializer\Type('array<' . Driver::class . '>')]
-    public ?array $previousDrivers;
+    public ?array $previousDrivers = null;
 
     #[Serializer\Type(Driver::class)]
     public ?Driver $currentDriver = null;

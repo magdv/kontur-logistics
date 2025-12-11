@@ -9,5 +9,5 @@ use JMS\Serializer\Annotation as Serializer;
 class Circulations
 {
     #[Serializer\Type("array<" . Circulation::class . ">")]
-    public ?array $items;
+    public ?array $items = null;
 }
