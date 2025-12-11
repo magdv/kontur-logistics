@@ -38,6 +38,7 @@ class LogisticsTransportationTitlesTest extends BaseTest
                 $circulation = $item;
             }
         }
+
         self::assertNotEmpty($circulation);
 
         $titleId = null;
@@ -47,6 +48,7 @@ class LogisticsTransportationTitlesTest extends BaseTest
                 $titleId = $title->id;
             }
         }
+
         self::assertNotEmpty($titleId);
 
         $title = $logistics->transportationTitle($waybill->transportationInfo->id, $titleId);

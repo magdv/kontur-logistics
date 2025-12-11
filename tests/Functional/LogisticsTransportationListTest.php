@@ -47,6 +47,7 @@ class LogisticsTransportationListTest extends BaseTest
         // From - to Этот тест может в будущем падать, т.к. я не могу гарантировать, что на стенде будет что - то находиться
         $listRequest->From = (new DateTimeImmutable("now - 5 year"));
         $listRequest->To = (new DateTimeImmutable("now - 4 year"));
+
         $response = $logistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
@@ -56,6 +57,7 @@ class LogisticsTransportationListTest extends BaseTest
         $listRequest->From = null;
         $listRequest->To = null;
         $listRequest->Take = 1;
+
         $response = $logistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
@@ -75,6 +77,7 @@ class LogisticsTransportationListTest extends BaseTest
         $listRequest->Skip = null;
         $listRequest->Take = null;
         $listRequest->Status = TransportationStatus::REVOKED;
+
         $response = $logistics->transportationsList($listRequest);
 
         $this->assertNotEmpty($response);
@@ -105,6 +108,7 @@ class LogisticsTransportationListTest extends BaseTest
         // разархивируем, если есть в архиве
         $listRequest = new TransportationListRequest();
         $listRequest->Status = TransportationStatus::ARCHIVED;
+
         $response = $logistics->transportationsList($listRequest);
         /** @var TrasportationResponse $transportation */
         foreach ((array)$response->items as $transportation) {

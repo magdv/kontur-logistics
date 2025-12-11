@@ -111,6 +111,7 @@ class LogisticsDocumentsTest extends BaseTest
         );
         $listRequest = new TransportationListRequest();
         $listRequest->Status = TransportationStatus::ARCHIVED;
+
         $response = $logistics->transportationsList($listRequest);
         /** @var TrasportationResponse $transportation */
         foreach ((array)$response->items as $transportation) {
@@ -122,6 +123,7 @@ class LogisticsDocumentsTest extends BaseTest
         );
         $listRequest = new TransportationListRequest();
         $listRequest->Status = TransportationStatus::ARCHIVED;
+
         $response = $logistics->transportationsList($listRequest);
         /** @var TrasportationResponse $transportation */
         foreach ((array)$response->items as $transportation) {
