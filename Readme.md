@@ -71,11 +71,39 @@ class LocalConfig extends ClientConfig
 
 ## Сделаны и протестированы методы
 
-- `v1/mintransgateway/uuid`
-- `v1/documents/waybill`
-- `v1/documents/waybill/draft`
-- `v1/transportations`
-- `v1/transportations/{id}`
-- `v1/transportations/{id}/print-form`
-- `v1/transportations/{id}/archive`
-- `v1/organizations/requisites`
+### Минтранс
+
+- `GET v1/mintransgateway/uuid`
+
+### Документы (Транспортные накладные)
+
+- `POST v1/documents/waybill` — Отправка ТРН
+- `POST v1/documents/waybill/draft` — Черновик документа
+
+### Перевозки
+
+- `GET v1/transportations` — Список перевозок
+- `GET v1/transportations/{id}` — Информация о перевозке
+- `GET v1/transportations/{id}/print-form` — Печатная форма ТРН
+- `GET v1/transportations/{id}/titles/{titleId}` — Титул грузополучателя
+- `GET v1/transportations/{id}/full-docflow` — Полный документооборот перевозки
+- `PUT v1/transportations/{id}/archive` — Архивация/разархивация перевозки
+- `POST v1/transportations/documents/draft` — Черновик документов для перевозки
+
+### Организации
+
+- `GET v1/organizations/requisites` — Реквизиты организации
+
+## Работа с ошибками
+
+Класс `Error` содержит метод `getAllErrorMessagesByJsonString()`, который возвращает полный список ошибок в JSON-формате:
+
+```php
+if (!$response->isOk()) {
+    // Отдельное сообщение
+    echo $response->error->message;
+    
+    // Все ошибки в JSON
+    echo $response->error->getAllErrorMessagesByJsonString();
+}
+```

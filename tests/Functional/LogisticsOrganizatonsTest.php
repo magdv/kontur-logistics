@@ -44,8 +44,8 @@ class LogisticsOrganizatonsTest extends BaseTest
         $this->assertEquals('Production', $kdv->transportationsSettings->workMode);
         $this->assertEquals(
             [
-                'consignee',
                 'consignor',
+                'consignee',
             ],
             $kdv->roles
         );

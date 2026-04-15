@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Message\MultipartStream\MultipartStreamBuilder;
+use MagDv\Logistics\Entities\Transportations\CreateDraftResponse;
+use MagDv\Logistics\Entities\Transportations\DocumentsDraftRequest;
 use MagDv\Logistics\Entities\Transportations\FullDocFlowResponse;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
@@ -200,5 +204,55 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;
+    }
+
+    public function createDraft(DocumentsDraftRequest $request): CreateDraftResponse
+    {
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
+        $builder = new MultipartStreamBuilder($streamFactory);
+
+        if ($request->draft !== '' && $request->draft !== '0') {
+            $builder
+                ->addResource(
+                    'draft',
+                    $request->draft,
+                    [
+                        'filename' => $request->draftFileName,
+                        'headers' => [
+                            'Content-Type' => 'text/xml'
+                        ]
+                    ]
+                );
+        }
+
+        $multipartStream = $builder->build();
+        $boundary = $builder->getBoundary();
+
+
+        $d = $request->replaceAttachments ? 'true' : 'false';
+
+        $req = new Request(
+            'POST',
+            $this->url . 'v1/transportations/documents/draft?' . http_build_query(
+                [
+                    'transportationId' => $request->transportationId,
+                    'draftAction' => $request->draftAction,
+                    'initiatorBoxId' => $request->initiatorBoxId,
+                    'replaceAttachments' => $request->replaceAttachments ? 'true' : 'false',
+                ]
+            ),
+            [
+                'Content-Type' => 'multipart/form-data;boundary="' . $boundary . '"',
+            ],
+            $multipartStream
+        );
+
+        $response = $this->send($req);
+
+        /** @var CreateDraftResponse $body */
+        $body = $this->serializer->deserialize($response->getBody()->getContents(), CreateDraftResponse::class, 'json');
+        $body->statusCode = $response->getStatusCode();
+
+        return $body;
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics\Interfaces;
 
+use MagDv\Logistics\Entities\Transportations\CreateDraftResponse;
+use MagDv\Logistics\Entities\Transportations\DocumentsDraftRequest;
 use MagDv\Logistics\Entities\Transportations\FullDocFlowResponse;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
@@ -31,4 +33,5 @@ interface LogisticsTransportationsApiInterface
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse;
 
     public function transportationsPrintForm(string $transportationId): PrintFormResponse;
+    public function createDraft(DocumentsDraftRequest $request): CreateDraftResponse;
 }
