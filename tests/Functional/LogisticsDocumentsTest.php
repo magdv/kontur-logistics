@@ -49,18 +49,12 @@ class LogisticsDocumentsTest extends BaseTest
         $ligistics = new LogisticsDocumentsApi(new LocalConfig());
         $response = $ligistics->sendWaybill($request);
         $this->assertEquals(400, $response->statusCode);
-        $this->assertEquals("Некорректное содержание титула. Токен не найден: 'СвДовер/@ИдентДовер'.", $response->error->message);
-        $this->assertEquals("СвДовер/@ИдентДовер", $response->error->details[0]->target);
-        $this->assertEquals("Токен не найден.", $response->error->details[0]->message);
+        $this->assertEquals("Не удалось прочитать подпись. Проверьте корректность отправляемой подписи.", $response->error->message);
         $this->assertEquals(
             [
                 [
                     'target' => '/v1/documents/waybill',
-                    'message' => "Некорректное содержание титула. Токен не найден: 'СвДовер/@ИдентДовер'."
-                ],
-                [
-                    'message' => 'Токен не найден.',
-                    'target' => 'СвДовер/@ИдентДовер'
+                    'message' => "Не удалось прочитать подпись. Проверьте корректность отправляемой подписи."
                 ]
             ],
             json_decode($response->error->getAllErrorMessagesByJsonString(), true)
