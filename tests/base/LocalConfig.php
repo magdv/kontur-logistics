@@ -6,13 +6,16 @@ namespace Test\base;
 
 use GuzzleHttp\Client;
 use MagDv\Logistics\ClientConfig;
+use MagDv\Logistics\Interfaces\HttpLoggerInterface;
 use Psr\Http\Client\ClientInterface;
 use Test\enums\ConfigNames;
 
 class LocalConfig extends ClientConfig
 {
-    public function __construct(private ?string $apiKey = null)
-    {
+    public function __construct(
+        private ?string $apiKey = null,
+        private ?HttpLoggerInterface $logger = null,
+    ) {
     }
 
     public function getCachePath(): ?string
@@ -42,5 +45,10 @@ class LocalConfig extends ClientConfig
                 'debug' => true,
             ]
         );
+    }
+
+    public function getLogger(): ?HttpLoggerInterface
+    {
+        return $this->logger;
     }
 }

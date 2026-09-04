@@ -228,9 +228,6 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
         $multipartStream = $builder->build();
         $boundary = $builder->getBoundary();
 
-
-        $d = $request->replaceAttachments ? 'true' : 'false';
-
         $req = new Request(
             'POST',
             $this->url . 'v1/transportations/documents/draft?' . http_build_query(

@@ -94,6 +94,46 @@ class LocalConfig extends ClientConfig
 
 - `GET v1/organizations/requisites` — Реквизиты организации
 
+## Логирование HTTP-запросов
+
+Логер опционален: если `getLogger()` возвращает `null`, запросы идут без логирования.
+
+Чтобы включить логирование, реализуйте `HttpLoggerInterface` и верните его из конфига:
+
+```php
+use MagDv\Logistics\Entities\Http\HttpLogDto;
+use MagDv\Logistics\Interfaces\HttpLoggerInterface;
+use MagDv\Logistics\Logger\StdoutHttpLogger;
+
+class LocalConfig extends ClientConfig
+{
+    // ... остальные методы ...
+
+    public function getLogger(): ?HttpLoggerInterface
+    {
+        // готовый пример — пишет в STDOUT
+        return new StdoutHttpLogger();
+
+        // или свой логер:
+        // return new class implements HttpLoggerInterface {
+        //     public function log(HttpLogDto $log): void
+        //     {
+        //         // $log->url, $log->method, $log->params, $log->response, $log->statusCode
+        //     }
+        // };
+    }
+}
+```
+
+В `HttpLogDto` передаётся:
+- `url` — полный URI запроса
+- `method` — HTTP-метод
+- `params` — тело запроса (или `null`, если пусто)
+- `response` — тело ответа
+- `statusCode` — HTTP-код ответа
+
+После логирования библиотека возвращает stream ответа в начало, отдельно делать `rewind` не нужно.
+
 ## Работа с ошибками
 
 Класс `Error` содержит метод `getAllErrorMessagesByJsonString()`, который возвращает полный список ошибок в JSON-формате:
