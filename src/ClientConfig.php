@@ -10,9 +10,15 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
 use MagDv\Logistics\Interfaces\ClientConfigInterface;
+use MagDv\Logistics\Interfaces\HttpLoggerInterface;
 
 abstract class ClientConfig implements ClientConfigInterface
 {
+    public function getLogger(): ?HttpLoggerInterface
+    {
+        return null;
+    }
+
     public function getSerializer(): Serializer
     {
         $serializer = SerializerBuilder::create()->setPropertyNamingStrategy(

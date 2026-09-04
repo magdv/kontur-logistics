@@ -16,4 +16,6 @@ interface ClientConfigInterface
     public function getApiKey(): string;
 
     public function getClient(): ClientInterface;
+
+    public function getLogger(): ?HttpLoggerInterface;
 }
