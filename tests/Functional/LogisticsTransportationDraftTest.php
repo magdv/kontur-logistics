@@ -21,6 +21,7 @@ class LogisticsTransportationDraftTest extends BaseTest
         // разархивируем, если есть в архиве
         $this->unArchive();
     }
+
     public function testCreatedWaybillDraft(): void
     {
         $xml = file_get_contents(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'ECN_DRAFT_KDV.xml');

@@ -6,15 +6,15 @@ namespace Test\Functional;
 
 use MagDv\Logistics\LogisticsOrganizationsApi;
 use Test\base\BaseTest;
-use Test\base\LocalConfig;
+use Test\base\KdvLocalConfig;
 
 class LogisticsOrganizatonsTest extends BaseTest
 {
-    private LocalConfig $client;
+    private KdvLocalConfig $client;
 
     protected function setUp(): void
     {
-        $this->client = new LocalConfig();
+        $this->client = new KdvLocalConfig();
     }
 
     public function testGetRequisites(): void
@@ -56,8 +56,36 @@ class LogisticsOrganizatonsTest extends BaseTest
 
         $this->assertNotEmpty($response);
         $this->assertEquals(404, $response->statusCode);
-        $this->assertStringContainsString("Организация c ИНН-КПП: '7017094419-701701001' не была найдена в системе", $response->error->message);
+        $this->assertStringContainsString(
+            "Организация c ИНН-КПП: '7017094419-701701001' не была найдена в системе",
+            $response->error->message
+        );
         $this->assertStringContainsString("NotFound", $response->error->code);
         $this->assertStringContainsString("v1/organization", $response->error->target);
+    }
+
+    public function testGetMyOrganization(): void
+    {
+        $organizations = new LogisticsOrganizationsApi(
+            $this->client
+        );
+        $organization = $organizations->my();
+
+        $this->assertNotEmpty($organization);
+        $this->assertTrue($organization->isOk());
+        $this->assertNotEmpty($organization->inn);
+        $this->assertNotEmpty($organization->kpp);
+        $this->assertNotEmpty($organization->diadocBoxId);
+        $this->assertNotEmpty($organization->fullName);
+        $this->assertNotEmpty($organization->transportationsSettings);
+        $this->assertNotEmpty($organization->eplsSettings);
+
+        if ($organization->permittedOperations !== null) {
+            $this->assertIsArray($organization->permittedOperations);
+        }
+
+        if ($organization->isReadyForEpd !== null) {
+            $this->assertIsBool($organization->isReadyForEpd);
+        }
     }
 }

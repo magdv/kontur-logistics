@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MagDv\Logistics;
 
+use MagDv\Logistics\Entities\Organizations\MyOrganization;
 use MagDv\Logistics\Entities\Organizations\Requisites;
 use MagDv\Logistics\Entities\Organizations\RequisitesResponse;
 use MagDv\Logistics\Interfaces\LogisticsOrganizationsApiInterface;
@@ -11,6 +12,17 @@ use Nyholm\Psr7\Request;
 
 class LogisticsOrganizationsApi extends BaseRequest implements LogisticsOrganizationsApiInterface
 {
+    public function my(): MyOrganization
+    {
+        $response = $this->send(new Request('GET', $this->url . 'v1/organizations/my'));
+
+        /** @var MyOrganization $dto */
+        $dto = $this->serializer->deserialize($response->getBody()->getContents(), MyOrganization::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
     public function requisites(string $inn, ?string $kpp = null): RequisitesResponse
     {
         $request = new Request('GET', $this->url . 'v1/organizations/requisites?' . http_build_query(['inn' => $inn, 'kpp' => $kpp]));
