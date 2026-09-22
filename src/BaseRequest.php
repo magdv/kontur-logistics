@@ -46,7 +46,7 @@ class BaseRequest
             throw new LogisticsApiException('Logistics client exception: ' . $clientException->getMessage(), $clientException->getCode(), $clientException);
         }
 
-        if ($this->logger !== null) {
+        if ($this->logger instanceof HttpLoggerInterface) {
             $response = $this->log($req, $response);
         }
 
@@ -55,9 +55,10 @@ class BaseRequest
 
     private function log(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        if ($this->logger === null) {
+        if (!$this->logger instanceof HttpLoggerInterface) {
             return $response;
         }
+
         $requestBody = $request->getBody();
         $params = $requestBody->getContents();
         if ($requestBody->isSeekable()) {

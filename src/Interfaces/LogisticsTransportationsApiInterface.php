@@ -9,6 +9,8 @@ use MagDv\Logistics\Entities\Transportations\DocumentsDraftRequest;
 use MagDv\Logistics\Entities\Transportations\FullDocFlowResponse;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
+use MagDv\Logistics\Entities\Transportations\TransportationEventsRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationEventsResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
 use MagDv\Logistics\Entities\Transportations\TransportationTitleResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
@@ -32,6 +34,9 @@ interface LogisticsTransportationsApiInterface
      */
     public function transportationsList(TransportationListRequest $requestList): TrasportationListResponse;
 
+    public function transportationEvents(TransportationEventsRequest $request): TransportationEventsResponse;
+
     public function transportationsPrintForm(string $transportationId): PrintFormResponse;
+
     public function createDraft(DocumentsDraftRequest $request): CreateDraftResponse;
 }

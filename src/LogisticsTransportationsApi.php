@@ -11,6 +11,8 @@ use MagDv\Logistics\Entities\Transportations\DocumentsDraftRequest;
 use MagDv\Logistics\Entities\Transportations\FullDocFlowResponse;
 use MagDv\Logistics\Entities\Transportations\PrintFormResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationArchiveResponse;
+use MagDv\Logistics\Entities\Transportations\TransportationEventsRequest;
+use MagDv\Logistics\Entities\Transportations\TransportationEventsResponse;
 use MagDv\Logistics\Entities\Transportations\TransportationListRequest;
 use MagDv\Logistics\Entities\Transportations\TransportationTitleResponse;
 use MagDv\Logistics\Entities\Transportations\TrasportationListResponse;
@@ -72,6 +74,35 @@ class LogisticsTransportationsApi extends BaseRequest implements LogisticsTransp
 
         /** @var TrasportationListResponse $dto */
         $dto = $this->serializer->deserialize($response->getBody()->getContents(), TrasportationListResponse::class, 'json');
+        $dto->statusCode = $response->getStatusCode();
+
+        return $dto;
+    }
+
+    public function transportationEvents(TransportationEventsRequest $requestEvents): TransportationEventsResponse
+    {
+        $queryData = [];
+        if ($requestEvents->FromId !== null) {
+            $queryData['FromId'] = $requestEvents->FromId;
+        }
+
+        if ($requestEvents->FromDt instanceof \DateTimeImmutable) {
+            $queryData['FromDt'] = $requestEvents->FromDt->format('Y-m-d\TH:i:sP');
+        }
+
+        if ($requestEvents->Count !== null) {
+            $queryData['Count'] = $requestEvents->Count;
+        }
+
+        if ($requestEvents->DiadocBoxId !== null) {
+            $queryData['DiadocBoxId'] = $requestEvents->DiadocBoxId;
+        }
+
+        $uri = new Uri($this->url . 'v1/transportations/events' . ($queryData !== [] ? '?' . http_build_query($queryData) : ''));
+        $response = $this->send(new Request('GET', $uri));
+
+        /** @var TransportationEventsResponse $dto */
+        $dto = $this->serializer->deserialize($response->getBody()->getContents(), TransportationEventsResponse::class, 'json');
         $dto->statusCode = $response->getStatusCode();
 
         return $dto;

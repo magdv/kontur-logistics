@@ -87,11 +87,13 @@ class LocalConfig extends ClientConfig
 - `GET v1/transportations/{id}/print-form` — Печатная форма ТРН
 - `GET v1/transportations/{id}/titles/{titleId}` — Титул грузополучателя
 - `GET v1/transportations/{id}/full-docflow` — Полный документооборот перевозки
+- `GET v1/transportations/events` — Лента событий перевозок; `FromId` задает курсор, `FromDt` — начальную дату, `Count` — количество событий
 - `PUT v1/transportations/{id}/archive` — Архивация/разархивация перевозки
 - `POST v1/transportations/documents/draft` — Черновик документов для перевозки
 
 ### Организации
 
+- `GET v1/organizations/my` — Данные текущей организации
 - `GET v1/organizations/requisites` — Реквизиты организации
 
 ## Логирование HTTP-запросов
